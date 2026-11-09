@@ -33,7 +33,18 @@ Then open `http://127.0.0.1:18000` and authenticate as `organizer`. Use your con
 
 ## Boot service on the PH server
 
-The [server admin guide](https://app.notion.com/p/3ea181f3b6ed8002bc2acc1b1c179ebf) supports systemd user services. The supplied unit assumes the checkout is `~/attendance-camera`:
+The [server admin guide](https://app.notion.com/p/3ea181f3b6ed8002bc2acc1b1c179ebf) supports systemd user services. The deployed backend belongs to **`p-attendance`**, with its checkout at **`/proj/attendance/attendance-camera`**. Project members manage it from the project account:
+
+```sh
+sudo -u p-attendance -i
+cd ~/attendance-camera
+loginctl enable-linger "$USER"
+loginctl show-user "$USER" -p Linger
+```
+
+The last command should report `Linger=yes`. Run the enable command with the explicit username from inside the project account. This keeps its user service manager running after logout and starts it at boot.
+
+The supplied unit assumes the checkout is `~/attendance-camera`. Install and enable it as the project user:
 
 ```sh
 mkdir -p ~/.config/systemd/user
@@ -43,9 +54,9 @@ systemctl --user enable --now attendance-server.service
 systemctl --user status attendance-server.service
 ```
 
-The account must have lingering enabled for startup without a login (`loginctl show-user "$USER" -p Linger`). The unit has a 2 GiB memory cap and four-CPU quota. It runs one application worker. A database file lock prevents a second process from counting the same camera into that database.
+If a non-login automation shell cannot connect to the user bus, set `XDG_RUNTIME_DIR=/run/user/$(id -u)` and `DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus` in that project-user shell. The unit has a 2 GiB memory cap and four-CPU quota. It runs one application worker. A database file lock prevents a second process from counting the same camera into that database.
 
-Use `journalctl --user -u attendance-server.service` for diagnostics. Stop it with `systemctl --user disable --now attendance-server.service`. To update, stop the unit, update the checkout, run `uv sync --locked --no-dev`, then restart it. Back up the aggregate database while stopped. Camera passwords and model binaries are not part of a source backup.
+Use `journalctl --user -u attendance-server.service` for diagnostics. Stop it with `systemctl --user disable --now attendance-server.service`. To update, stop the unit, update the checkout, run `~/.local/bin/uv sync --locked --no-dev`, then restart it. The deployed project account has its own uv and Python installation. Back up the aggregate database while stopped. Camera passwords and model binaries are not part of a source backup.
 
 ## When the server cannot reach the Pi's tailnet
 
@@ -53,7 +64,7 @@ The Pi can maintain an SSH reverse tunnel to the server's loopback interface. Th
 
 1. Generate a dedicated Ed25519 key on the Pi; keep its private key there.
 2. Pin the server's SSH host key from a trusted connection in a dedicated known-hosts file.
-3. Append the public key to the intended server account's `authorized_keys`, with restrictions:
+3. Append the public key to the intended server account's `authorized_keys`, with restrictions. Use `p-attendance` for this project; preserve the managed `~/.ssh/authorized_keys` symlink and append through it rather than replacing it:
 
    ```text
    restrict,port-forwarding,permitlisten="127.0.0.1:18554",permitopen="127.0.0.1:9",command="/usr/bin/false" ssh-ed25519 <PUBLIC_KEY> attendance-camera-tunnel
