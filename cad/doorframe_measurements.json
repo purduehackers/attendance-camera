@@ -1,0 +1,48 @@
+{
+  "revision": "v5 upright electronics, downward camera, passive retaining saddles",
+  "frame_mm": {
+    "overhang": 52,
+    "lip_rise": 55,
+    "first_ledge": 12,
+    "next_rise": 12,
+    "upper_ledge": 11
+  },
+  "orientation": "Underside z=0; front face y=0 rises to z55; ledge y0..12 at z55; next face y12 rises to z67; upper ledge y12..23 at z67. Conservative wall boundary at y23 above z67. Door boundary y52.",
+  "case_outer_mm": [
+    214,
+    38.6,
+    98
+  ],
+  "case_bounds_mm": {
+    "x": [
+      0,
+      214
+    ],
+    "y": [
+      -16.2,
+      22.4
+    ],
+    "z": [
+      69,
+      167
+    ]
+  },
+  "mount_contacts": "Four top pads across both ledges, plus two fixed padded arms under the overhang.",
+  "installation": "All assembly screws fitted on a table; slide completed enclosure over the frame from room side; no adjustment or tightening at height.",
+  "camera_axis_world": [
+    0,
+    0,
+    -1
+  ],
+  "camera_lens_center_xy_mm": [
+    107,
+    0
+  ],
+  "minimum_door_boundary_clearance_mm": 7,
+  "back_wall_clearance_mm": 0.6,
+  "pad_stock_mm": 3,
+  "pad_modeled_compressed_mm": 2.5,
+  "physical_fit_load_and_door_swing_tested": false,
+  "assumption": "Top 11 mm ledge meets wall. Model deliberately fits in front of that boundary; wall height is illustrative.",
+  "cable_note": "Ribbon follows open front groove to side of Pi; verify actual ribbon length and connector orientation before print."
+}

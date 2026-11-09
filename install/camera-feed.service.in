@@ -1,0 +1,27 @@
+[Unit]
+Description=Raspberry Pi camera stream
+Wants=network-online.target
+Requires=tailscaled.service
+After=network-online.target tailscaled.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=__SERVICE_USER__
+SupplementaryGroups=video render
+WorkingDirectory=/opt/camera-feed
+ExecStartPre=/bin/sh -c 'until /usr/sbin/ip -4 -o address show dev tailscale0 2>/dev/null | /usr/bin/grep -Fq " __TAILSCALE_IP__/"; do /bin/sleep 1; done'
+ExecStart=/opt/camera-feed/mediamtx /etc/camera-feed/mediamtx.yml
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=120s
+TimeoutStopSec=20s
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/dev/shm
+
+[Install]
+WantedBy=multi-user.target

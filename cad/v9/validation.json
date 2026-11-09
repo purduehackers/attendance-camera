@@ -1,0 +1,189 @@
+{
+  "revision": "v9",
+  "health_warnings": [],
+  "interference": [],
+  "parts": [
+    {
+      "name": "07 Upward-step fit gauge PRINT FIRST - PRINT",
+      "volume_cm3": 1.7971200000000005,
+      "installed": false
+    },
+    {
+      "name": "01 Integral case mount and camera holder - PRINT",
+      "volume_cm3": 151.63881816645718,
+      "installed": true
+    },
+    {
+      "name": "02 Snap-on front cover - PRINT",
+      "volume_cm3": 40.28423272255377,
+      "installed": true
+    },
+    {
+      "name": "03 Snap-on downward camera guard - PRINT",
+      "volume_cm3": 10.927647986824564,
+      "installed": true
+    },
+    {
+      "name": "08 Heat-set test coupon - TEST PRINT",
+      "volume_cm3": 1.4874406767638768,
+      "installed": false
+    }
+  ],
+  "installed_print_count": 3,
+  "electronics_screws": 8,
+  "heat_set_inserts": 8,
+  "nuts": 0,
+  "logo": {
+    "source": "https://www.purduehackers.com/ph.svg",
+    "source_sha256": "29cd668a55daf3636eb900eb3c7e5225ec8bb014d5f3b0d5f58328188915d8e6",
+    "style": "recessed official flat logo",
+    "width_mm": 32.0,
+    "height_mm": 30.883720930232556,
+    "depth_mm": 0.6,
+    "minimum_remaining_cover_mm": 1.4,
+    "x_bounds_mm": [
+      91.0,
+      123.0
+    ],
+    "z_bounds_mm": [
+      76.0,
+      106.88372093023256
+    ],
+    "removed_volume_cm3": 0.32937913654689016,
+    "floor_faces": 2,
+    "colour_note": "Yellow is optional paint-fill visualization. STL remains a single-material solid; no extra part is required.",
+    "manufacturing_relief": "0.4 mm corner chamfer at the point contact; 0.283 mm minimum separation between recessed regions."
+  },
+  "camera_direction": [
+    0.0,
+    0.0,
+    -1.0
+  ],
+  "ribbon_route_mm": [
+    [
+      -17.5,
+      -13
+    ],
+    [
+      -17.5,
+      -9
+    ],
+    [
+      -14.5,
+      -7
+    ],
+    [
+      -13,
+      -7
+    ],
+    [
+      -10.8,
+      -3.5
+    ],
+    [
+      -10.8,
+      73
+    ]
+  ],
+  "ribbon_envelope_mm": [
+    16,
+    0.35
+  ],
+  "ribbon_envelope_is_assumed": true,
+  "nominal_mass_g": 648.7203875723111,
+  "nominal_center_of_mass_mm": [
+    91.82250817949196,
+    4.391610113104005,
+    96.94634032633111
+  ],
+  "mass_assumptions": "Solid PETG 1.27 g/cm3; battery 326.1 g; Pi 50 g; camera 15 g. Cables, inserts, screws, pads and straps excluded. Hardware COM approximated by reference volume.",
+  "top_support_y_mm": [
+    0.5,
+    22
+  ],
+  "access_corridors_checked": [
+    {
+      "name": "Pi USB and Ethernet top",
+      "x_mm": [
+        144.5,
+        202.5
+      ],
+      "y_mm": [
+        -3.5,
+        16.5
+      ],
+      "z_mm": [
+        163.1,
+        190.1
+      ]
+    },
+    {
+      "name": "Pi power HDMI audio side",
+      "x_mm": [
+        203.1,
+        235
+      ],
+      "y_mm": [
+        -4.5,
+        17.5
+      ],
+      "z_mm": [
+        79.5,
+        136.5
+      ]
+    },
+    {
+      "name": "Battery charging end",
+      "x_mm": [
+        -25,
+        7.9
+      ],
+      "y_mm": [
+        -11,
+        20
+      ],
+      "z_mm": [
+        75.5,
+        151.5
+      ]
+    }
+  ],
+  "hardware_stack_checks": {
+    "Pi": {
+      "pcb_mm": 1.6,
+      "screw_length_mm": 6,
+      "screw_projection_mm": 4.4,
+      "insert_length_mm": 4,
+      "pocket_depth_mm": 5,
+      "tip_clearance_mm": 0.6
+    },
+    "camera": {
+      "pcb_mm": 1.2,
+      "screw_length_mm": 4,
+      "screw_projection_mm": 2.8,
+      "insert_length_mm": 3,
+      "pocket_depth_mm": 4,
+      "tip_clearance_mm": 1.2
+    }
+  },
+  "structural_revision": {
+    "hook_toe_mm": 7,
+    "minimum_hook_pad_section_mm": 6.5,
+    "arm_web_mm": 5,
+    "arm_width_mm": 26,
+    "arm_root_and_knee_radius_mm": 1.5,
+    "heel_radius_mm": 2,
+    "cover_clip_root_radii_mm": [
+      0.6,
+      0.4
+    ]
+  },
+  "not_tested": [
+    "physical snap action",
+    "printed strength and creep",
+    "loaded mount retention",
+    "thermal operation",
+    "actual cable housings and bend radii"
+  ],
+  "insert_note": "Knurl-to-plastic interference is intentional during heat setting; insert/fastener solids are not included in the collision model. Dimensions and source parts are in hardware.json."
+}

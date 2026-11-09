@@ -1,0 +1,10 @@
+*.f3d binary
+*.stl binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.step -diff
+*.stp -diff
+*.sh text eol=lf
+*.py text eol=lf
+*.md text eol=lf

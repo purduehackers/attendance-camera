@@ -1,0 +1,148 @@
+{
+  "revision": "v5",
+  "health_warnings": [],
+  "interference": [],
+  "parts": [
+    {
+      "name": "04 Camera G carrier - PRINT",
+      "volume_cm3": 4.1110440361401706
+    },
+    {
+      "name": "05 Camera G protective cap - PRINT",
+      "volume_cm3": 7.946280657123207
+    },
+    {
+      "name": "01 Upright Pi and battery shell - PRINT",
+      "volume_cm3": 96.2277498570445
+    },
+    {
+      "name": "02 Vented front service panel - PRINT",
+      "volume_cm3": 47.17692744604886
+    },
+    {
+      "name": "03 left passive retaining saddle - PRINT",
+      "volume_cm3": 17.379027660702718
+    },
+    {
+      "name": "03 right passive retaining saddle - PRINT",
+      "volume_cm3": 17.3790276607027
+    },
+    {
+      "name": "06 Straight-down camera support - PRINT",
+      "volume_cm3": 26.00322987692992
+    },
+    {
+      "name": "07 Upward-step fit gauge PRINT FIRST - PRINT",
+      "volume_cm3": 1.7971200000000005
+    }
+  ],
+  "camera_direction": [
+    0,
+    0,
+    -1
+  ],
+  "top_contact_y_range_mm": [
+    0.5,
+    22
+  ],
+  "nominal_center_of_mass_mm": [
+    114.23798223980702,
+    3.4282806180176073,
+    96.30931377818074
+  ],
+  "nominal_mass_g": 665.7035747372589,
+  "mass_items": [
+    {
+      "name": "REFERENCE - INIU P51L-E2 115 x 73 x 29 mm",
+      "nominal_mass_g": 326.1,
+      "center_mm": [
+        133.5,
+        4.900000000000007,
+        112.5
+      ]
+    },
+    {
+      "name": "REFERENCE - Raspberry Pi4 rotated ports",
+      "nominal_mass_g": 50,
+      "center_mm": [
+        32.83261157090139,
+        9.82898104157783,
+        97.16648063756755
+      ]
+    },
+    {
+      "name": "04 Camera G carrier - PRINT",
+      "nominal_mass_g": 5.221025925898017,
+      "center_mm": [
+        107.0000000000065,
+        -2.591921087060929,
+        -9.597563518161333
+      ]
+    },
+    {
+      "name": "05 Camera G protective cap - PRINT",
+      "nominal_mass_g": 10.091776434546473,
+      "center_mm": [
+        107.00000000013355,
+        -2.4703995027253423,
+        -21.187985891253632
+      ]
+    },
+    {
+      "name": "REFERENCE - Waveshare RPi Camera G PCB and lens",
+      "nominal_mass_g": 15,
+      "center_mm": [
+        107.00000000140182,
+        -0.6065219371369241,
+        -22.140860893034684
+      ]
+    },
+    {
+      "name": "01 Upright Pi and battery shell - PRINT",
+      "nominal_mass_g": 122.20924231844651,
+      "center_mm": [
+        105.90692647209643,
+        12.542945782274606,
+        113.89995218631408
+      ]
+    },
+    {
+      "name": "02 Vented front service panel - PRINT",
+      "nominal_mass_g": 59.91469785648205,
+      "center_mm": [
+        107.31133863087565,
+        -15.000000000000002,
+        117.1964564923205
+      ]
+    },
+    {
+      "name": "03 left passive retaining saddle - PRINT",
+      "nominal_mass_g": 22.071365129092452,
+      "center_mm": [
+        24.999999999999474,
+        2.0188949713240008,
+        17.514082743015052
+      ]
+    },
+    {
+      "name": "03 right passive retaining saddle - PRINT",
+      "nominal_mass_g": 22.07136512909243,
+      "center_mm": [
+        188.99999999999952,
+        2.018894971324003,
+        17.514082743015063
+      ]
+    },
+    {
+      "name": "06 Straight-down camera support - PRINT",
+      "nominal_mass_g": 33.024101943701,
+      "center_mm": [
+        107.00000000001066,
+        -14.620301358501326,
+        43.91914498249616
+      ]
+    }
+  ],
+  "estimate_assumptions": "Printed geometry treated as solid PETG at assumed 1.27 g/cm3; battery 326.1 g; Pi 50 g; camera 15 g. Reference hardware centers use uniform geometric density. Screws, pads, cable and straps excluded. Slicing and actual hardware change results.",
+  "physical_fit_load_retention_door_swing_tested": false
+}

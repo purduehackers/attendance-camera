@@ -1,0 +1,46 @@
+logLevel: info
+logDestinations: [stdout]
+
+authMethod: internal
+authInternalUsers:
+  - user: any
+    ips: [100.64.0.0/10]
+    permissions:
+      - action: read
+        path: cam
+
+api: false
+metrics: false
+pprof: false
+playback: false
+
+rtsp: true
+rtspAddress: __TAILSCALE_IP__:8554
+rtspTransports: [tcp]
+rtspEncryption: "no"
+
+rtmp: false
+hls: false
+srt: false
+moq: false
+
+webrtc: true
+webrtcAddress: __TAILSCALE_IP__:8889
+webrtcLocalUDPAddress: __TAILSCALE_IP__:8189
+webrtcLocalTCPAddress: __TAILSCALE_IP__:8189
+webrtcIPsFromInterfaces: false
+webrtcAdditionalHosts: [__TAILSCALE_IP__]
+
+paths:
+  cam:
+    source: rpiCamera
+    sourceOnDemand: false
+    record: false
+    rpiCameraCamID: 0
+    rpiCameraWidth: 1920
+    rpiCameraHeight: 1080
+    rpiCameraFPS: 30
+    rpiCameraCodec: hardwareH264
+    rpiCameraH264Profile: baseline
+    rpiCameraIDRPeriod: 30
+    rpiCameraBitrate: 8000000

@@ -1,0 +1,82 @@
+{
+  "health_warnings": [],
+  "parts": [
+    {
+      "name": "01 Battery tray - PRINT",
+      "volume_cm3": 65.25379740904496
+    },
+    {
+      "name": "02 Pi tray and upper shell - PRINT",
+      "volume_cm3": 56.95607432787173
+    },
+    {
+      "name": "03 Vented lid - PRINT",
+      "volume_cm3": 23.138276811316697
+    },
+    {
+      "name": "04 Camera G carrier - PRINT",
+      "volume_cm3": 4.1110440361401706
+    },
+    {
+      "name": "05 Camera G protective cap - PRINT",
+      "volume_cm3": 7.946280657123207
+    },
+    {
+      "name": "06 Camera 45 degree bracket - PRINT - provisional aim",
+      "volume_cm3": 12.576867395115457
+    },
+    {
+      "name": "07 Doorframe mounting platform - PRINT",
+      "volume_cm3": 76.43551517206569
+    },
+    {
+      "name": "08 left clamp guide - PRINT",
+      "volume_cm3": 5.9892776607027285
+    },
+    {
+      "name": "09 left sliding clamp jaw - PRINT",
+      "volume_cm3": 8.227010925936492
+    },
+    {
+      "name": "08 right clamp guide - PRINT",
+      "volume_cm3": 5.9892776607027285
+    },
+    {
+      "name": "09 right sliding clamp jaw - PRINT",
+      "volume_cm3": 8.227010925936497
+    },
+    {
+      "name": "10 Doorframe fit gauge PRINT FIRST - PRINT",
+      "volume_cm3": 2.864640000000003
+    }
+  ],
+  "interference": [],
+  "total_printed_volume_cm3": 277.7150729819564,
+  "case_body_mm": [
+    142,
+    88,
+    71.4
+  ],
+  "platform_mm": [
+    190,
+    92,
+    6
+  ],
+  "rubber_pad_projection_mm": 2.2,
+  "camera_hole_pitch_mm": [
+    21,
+    13.5
+  ],
+  "camera_angle_degrees": 45,
+  "doorframe_mount": "Two sliding padded screw jaws grip the first 12 mm return below the 55 mm lip",
+  "doorframe_dimensions_mm": [
+    52,
+    55,
+    12,
+    12,
+    11
+  ],
+  "minimum_modeled_door_boundary_clearance_mm": 2,
+  "physical_fit_tested": false,
+  "fastener_loads_and_door_swing_validated": false
+}

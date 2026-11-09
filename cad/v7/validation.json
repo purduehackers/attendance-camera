@@ -1,0 +1,156 @@
+{
+  "revision": "v7",
+  "health_warnings": [],
+  "interference": [],
+  "parts": [
+    {
+      "name": "07 Upward-step fit gauge PRINT FIRST - PRINT",
+      "volume_cm3": 1.7971200000000005,
+      "installed": false
+    },
+    {
+      "name": "01 Integral case mount and camera holder - PRINT",
+      "volume_cm3": 145.80196916669112,
+      "installed": true
+    },
+    {
+      "name": "02 Snap-on front cover - PRINT",
+      "volume_cm3": 40.61137999999998,
+      "installed": true
+    },
+    {
+      "name": "03 Snap-on downward camera guard - PRINT",
+      "volume_cm3": 10.927647986824564,
+      "installed": true
+    },
+    {
+      "name": "08 Heat-set test coupon - TEST PRINT",
+      "volume_cm3": 1.4874406767638768,
+      "installed": false
+    }
+  ],
+  "installed_print_count": 3,
+  "electronics_screws": 8,
+  "heat_set_inserts": 8,
+  "nuts": 0,
+  "camera_direction": [
+    0.0,
+    0.0,
+    -1.0
+  ],
+  "ribbon_route_mm": [
+    [
+      -17.5,
+      -13
+    ],
+    [
+      -17.5,
+      -9
+    ],
+    [
+      -14.5,
+      -7
+    ],
+    [
+      -13,
+      -7
+    ],
+    [
+      -10.8,
+      -3.5
+    ],
+    [
+      -10.8,
+      73
+    ]
+  ],
+  "ribbon_envelope_mm": [
+    16,
+    0.35
+  ],
+  "ribbon_envelope_is_assumed": true,
+  "nominal_mass_g": 641.7230663849649,
+  "nominal_center_of_mass_mm": [
+    91.65840480938812,
+    4.233184264132039,
+    98.14630110266968
+  ],
+  "mass_assumptions": "Solid PETG 1.27 g/cm3; battery 326.1 g; Pi 50 g; camera 15 g. Cables, inserts, screws, pads and straps excluded. Hardware COM approximated by reference volume.",
+  "top_support_y_mm": [
+    0.5,
+    22
+  ],
+  "access_corridors_checked": [
+    {
+      "name": "Pi USB and Ethernet top",
+      "x_mm": [
+        144.5,
+        202.5
+      ],
+      "y_mm": [
+        -3.5,
+        16.5
+      ],
+      "z_mm": [
+        163.1,
+        190.1
+      ]
+    },
+    {
+      "name": "Pi power HDMI audio side",
+      "x_mm": [
+        203.1,
+        235
+      ],
+      "y_mm": [
+        -4.5,
+        17.5
+      ],
+      "z_mm": [
+        79.5,
+        136.5
+      ]
+    },
+    {
+      "name": "Battery charging end",
+      "x_mm": [
+        -25,
+        7.9
+      ],
+      "y_mm": [
+        -11,
+        20
+      ],
+      "z_mm": [
+        75.5,
+        151.5
+      ]
+    }
+  ],
+  "hardware_stack_checks": {
+    "Pi": {
+      "pcb_mm": 1.6,
+      "screw_length_mm": 6,
+      "screw_projection_mm": 4.4,
+      "insert_length_mm": 4,
+      "pocket_depth_mm": 5,
+      "tip_clearance_mm": 0.6
+    },
+    "camera": {
+      "pcb_mm": 1.2,
+      "screw_length_mm": 4,
+      "screw_projection_mm": 2.8,
+      "insert_length_mm": 3,
+      "pocket_depth_mm": 4,
+      "tip_clearance_mm": 1.2
+    }
+  },
+  "not_tested": [
+    "physical snap action",
+    "printed strength and creep",
+    "loaded mount retention",
+    "thermal operation",
+    "actual cable housings and bend radii"
+  ],
+  "insert_note": "Knurl-to-plastic interference is intentional during heat setting; insert/fastener solids are not included in the collision model. Dimensions and source parts are in hardware.json."
+}

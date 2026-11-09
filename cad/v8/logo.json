@@ -1,0 +1,20 @@
+{
+  "source": "https://www.purduehackers.com/ph.svg",
+  "source_sha256": "29cd668a55daf3636eb900eb3c7e5225ec8bb014d5f3b0d5f58328188915d8e6",
+  "style": "recessed official flat logo",
+  "width_mm": 32.0,
+  "height_mm": 30.883720930232556,
+  "depth_mm": 0.6,
+  "minimum_remaining_cover_mm": 1.4,
+  "x_bounds_mm": [
+    91.0,
+    123.0
+  ],
+  "z_bounds_mm": [
+    76.0,
+    106.88372093023256
+  ],
+  "removed_volume_cm3": 0.32942713654689015,
+  "floor_faces": 2,
+  "colour_note": "Yellow is optional paint-fill visualization. STL remains a single-material solid; no extra part is required."
+}

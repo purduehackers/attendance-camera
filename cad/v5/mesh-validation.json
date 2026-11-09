@@ -1,0 +1,90 @@
+[
+  {
+    "file": "01-upright-pi-and-battery-shell.stl",
+    "triangles": 3900,
+    "size_mm": [
+      214.0,
+      109.5,
+      36.2
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 96.221
+  },
+  {
+    "file": "02-vented-front-service-panel.stl",
+    "triangles": 1416,
+    "size_mm": [
+      214.0,
+      98.0,
+      2.4
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 47.1777
+  },
+  {
+    "file": "03-left-passive-retaining-saddle.stl",
+    "triangles": 492,
+    "size_mm": [
+      59.0,
+      76.0,
+      26.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 17.3794
+  },
+  {
+    "file": "03-right-passive-retaining-saddle.stl",
+    "triangles": 492,
+    "size_mm": [
+      59.0,
+      76.0,
+      26.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 17.3794
+  },
+  {
+    "file": "04-camera-g-carrier.stl",
+    "triangles": 5276,
+    "size_mm": [
+      38.0,
+      38.0,
+      5.5
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 4.1115
+  },
+  {
+    "file": "05-camera-g-protective-cap.stl",
+    "triangles": 3404,
+    "size_mm": [
+      38.0,
+      38.0,
+      17.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 7.9457
+  },
+  {
+    "file": "06-straight-down-camera-support.stl",
+    "triangles": 2676,
+    "size_mm": [
+      40.5,
+      128.0,
+      42.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 26.0057
+  },
+  {
+    "file": "07-upward-step-fit-gauge-print-first.stl",
+    "triangles": 36,
+    "size_mm": [
+      26.0,
+      70.0,
+      8.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 1.7971
+  }
+]

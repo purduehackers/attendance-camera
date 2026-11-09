@@ -1,0 +1,16 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+.env
+.env.*
+!.env.example
+build/
+local/
+*.log
+*.pem
+*.key
+*.nmconnection
+recordings/
+captures/
+cad/scripts/fusion-preview.png

@@ -1,0 +1,61 @@
+{
+  "revision": "v6 three installed prints",
+  "installed_prints": [
+    "integral case, retaining arms and camera holder",
+    "snap-on front cover",
+    "snap-on camera guard"
+  ],
+  "screws": [
+    {
+      "quantity": 4,
+      "size": "M2.5 x 6",
+      "pitch_mm": 0.45,
+      "standard": "ISO 4762 / DIN 912",
+      "head_diameter_mm": 4.5,
+      "head_height_mm": 2.5,
+      "hex_key_mm": 2,
+      "purpose": "Pi"
+    },
+    {
+      "quantity": 4,
+      "size": "M2 x 4",
+      "pitch_mm": 0.4,
+      "standard": "ISO 4762 / DIN 912",
+      "head_diameter_mm": 3.8,
+      "head_height_mm": 2,
+      "hex_key_mm": 1.5,
+      "purpose": "camera"
+    }
+  ],
+  "inserts": [
+    {
+      "quantity": 4,
+      "manufacturer": "CNC Kitchen",
+      "type": "M2.5 x 4",
+      "part": "TC-M2.5x4.0",
+      "length_mm": 4,
+      "outer_diameter_mm": 4.6,
+      "pilot_mm": 4,
+      "depth_mm": 5,
+      "boss_od_mm": 8
+    },
+    {
+      "quantity": 4,
+      "manufacturer": "CNC Kitchen",
+      "type": "M2 x 3",
+      "length_mm": 3,
+      "outer_diameter_mm": 3.6,
+      "pilot_mm": 3.2,
+      "depth_mm": 4,
+      "boss_od_mm": 6.4
+    }
+  ],
+  "source_insert_drawing": "https://cnckitchen.store/cdn/shop/files/Table_Metic.png",
+  "source_insert_M2": "https://cnckitchen.store/products/heat-set-insert-m2-x-3-100-pieces",
+  "source_insert_M25": "https://cnckitchen.store/products/gewindeeinsatz-threaded-insert-m2-5-standard-100-stk-pcs",
+  "source_screw_M2": "https://www.accu.co.uk/metric-cap-head-screws/3790-SSCF-M2-4-A2",
+  "source_screw_M25": "https://www.accu.co.uk/metric-cap-head-screws/3804-SSCF-M2-5-6-A2",
+  "physical_fit_tested": false,
+  "snap_fit_tested": false,
+  "printing_note": "The integral body trades assembly joints for supports. Print with removable supports; largest body footprint is about 214 by 181 mm in the supplied orientation."
+}

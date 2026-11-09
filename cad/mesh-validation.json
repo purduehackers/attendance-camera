@@ -1,0 +1,134 @@
+[
+  {
+    "file": "01-battery-tray.stl",
+    "triangles": 3576,
+    "size_mm": [
+      142.0,
+      88.0,
+      37.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 65.2411
+  },
+  {
+    "file": "02-pi-tray-and-upper-shell.stl",
+    "triangles": 5304,
+    "size_mm": [
+      142.0,
+      88.0,
+      32.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 56.949
+  },
+  {
+    "file": "03-vented-lid.stl",
+    "triangles": 1176,
+    "size_mm": [
+      142.0,
+      88.0,
+      4.9
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 23.1384
+  },
+  {
+    "file": "04-camera-g-carrier.stl",
+    "triangles": 5276,
+    "size_mm": [
+      38.0,
+      38.0,
+      5.5
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 4.1115
+  },
+  {
+    "file": "05-camera-g-protective-cap.stl",
+    "triangles": 3404,
+    "size_mm": [
+      38.0,
+      38.0,
+      17.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 7.9457
+  },
+  {
+    "file": "06-camera-45-degree-bracket.stl",
+    "triangles": 3364,
+    "size_mm": [
+      42.0,
+      37.27,
+      18.885
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 12.5778
+  },
+  {
+    "file": "07-doorframe-mounting-platform.stl",
+    "triangles": 2308,
+    "size_mm": [
+      190.0,
+      92.0,
+      12.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 76.4367
+  },
+  {
+    "file": "08-left-clamp-guide.stl",
+    "triangles": 568,
+    "size_mm": [
+      26.0,
+      11.0,
+      55.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 5.9895
+  },
+  {
+    "file": "08-right-clamp-guide.stl",
+    "triangles": 568,
+    "size_mm": [
+      26.0,
+      11.0,
+      55.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 5.9895
+  },
+  {
+    "file": "09-left-sliding-clamp-jaw.stl",
+    "triangles": 348,
+    "size_mm": [
+      26.7,
+      40.2,
+      21.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 8.2271
+  },
+  {
+    "file": "09-right-sliding-clamp-jaw.stl",
+    "triangles": 348,
+    "size_mm": [
+      26.7,
+      40.2,
+      21.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 8.2271
+  },
+  {
+    "file": "10-doorframe-fit-gauge-print-first.stl",
+    "triangles": 44,
+    "size_mm": [
+      55.0,
+      73.0,
+      8.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 2.8646
+  }
+]
