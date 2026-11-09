@@ -1,5 +1,7 @@
 # attendance-camera v11
 
+**Archived. Use [v12](../v12/README.md) for current printing and assembly.**
+
 Two adjustable padded screw clamps replace the fixed hooks. The completed unit rests on the upward-facing frame ledges; two hand knobs press padded shoes against the underside. **The knobs must be tightened after placing the camera on the frame.** No drilling or screws into the building are required. All other assembly takes place on a table.
 
 The [editable Fusion design](../../../cad/v11/doorframe-camera-clamped-v11.f3d), [STEP](../../../cad/v11/doorframe-camera-clamped-v11.step) and [oriented STLs](../../../cad/v11/stl/) are in `cad/v11/`. This revision supersedes v10. It is a prototype with native/mesh checks, not a physically validated overhead mount.

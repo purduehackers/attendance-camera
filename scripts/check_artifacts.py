@@ -49,7 +49,7 @@ def check_revision(revision):
     for name, expected in manifest.items():
         assert hashlib.sha256((base / name).read_bytes()).hexdigest() == expected, f'Changed export: {name}'
     report = json.loads((base / 'validation.json').read_text())
-    expected_installed = 10 if revision == 'v11' else 3
+    expected_installed = 10 if revision in ('v11', 'v12') else 3
     assert report['installed_print_count'] == expected_installed and not report['health_warnings'] and not report['interference']
     assert report['camera_direction'] == [0, 0, -1]
     if revision == 'v10':
@@ -59,7 +59,7 @@ def check_revision(revision):
         for name, diameter in [('Pi', 2.1), ('camera', 1.7)]:
             faces = report['pilot_cylinder_checks'][name]
             assert len(faces) == 4 and all(f['diameter_mm'] == diameter for f in faces)
-    if revision == 'v11':
+    if revision in ('v11', 'v12'):
         hardware = json.loads((base / 'hardware.json').read_text())
         assert report['unique_print_count'] == 7 and not report['open_pose_interference']
         assert report['heat_set_inserts'] == 0 and report['nuts'] == 8
@@ -72,12 +72,24 @@ def check_revision(revision):
         assert cable['pi_lower_housing_clearance_mm'] >= 1
         assert cable['power_route_including_housings_mm'] < 480
         assert cable['model_builder_sha256'] == hashlib.sha256(
-            (CAD/'scripts/build_clamped_v11.py').read_bytes()).hexdigest()
+            (CAD/f'scripts/build_clamped_{revision}.py').read_bytes()).hexdigest()
         for name, diameter in [('Pi', 2.1), ('camera', 1.7)]:
             faces = report['pilot_cylinder_checks'][name]
             assert len(faces) == 4 and all(f['diameter_mm'] == diameter for f in faces)
+    if revision == 'v12':
+        cleanup = json.loads((base/'cleanup-validation.json').read_text())
+        assert hardware['revision'] == 'v12'
+        assert len(cleanup['native_volume_probes']) == 16
+        assert all(p['passed'] for p in cleanup['native_volume_probes'])
+        assert cleanup['strap_slot_dimensions_mm'] == [12, 2.2]
+        assert cleanup['strap_model_count'] == 2
+        assert cleanup['guard_print_orientation'] == 'open rim down'
+        assert all(abs(a-45) < 1e-5 for a in cleanup['guard_conical_half_angles_deg'])
+        meshes = json.loads((base/'mesh-validation.json').read_text())
+        guard = next(p for p in meshes if p['file'].startswith('03-'))
+        assert guard['size_mm'] == [47.6, 47.6, 30.3]
     paths = sorted((base / 'stl').glob('*.stl'))
-    expected_meshes = 7 if revision == 'v11' else 5
+    expected_meshes = 7 if revision in ('v11', 'v12') else 5
     assert len(paths) == expected_meshes
     for path in paths:
         check_mesh(path)
@@ -85,7 +97,7 @@ def check_revision(revision):
 
 
 def main():
-    for revision in ['v9', 'v10', 'v11']:
+    for revision in ['v9', 'v10', 'v11', 'v12']:
         check_revision(revision)
 
 

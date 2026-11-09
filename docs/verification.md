@@ -1,6 +1,6 @@
 # Verification status — 2026-11-09
 
-This separates observed device behavior, archived CAD checks and work that still needs hardware testing.
+This separates observed device behavior, current CAD checks and work that still needs hardware testing.
 
 Latest camera-path check on November 9: direct Pi RTSP decoded advancing 1920×1080 frames, but the server's reverse-SSH endpoint was absent and its preview returned 503. Pi SSH closed before login, blocking remote repair. Earlier successful playback checks below are historical; they do not establish current end-to-end availability.
 
@@ -11,9 +11,9 @@ Latest camera-path check on November 9: direct Pi RTSP decoded advancing 1920×1
 | Software binary | The official v1.21.3 ARM64 archive checksum was verified and its extracted binary matches the running Pi's binary checksum. The hashes are in `install/mediamtx-release.json`. |
 | Portable configuration | Tests cover substitution, tailnet-only addresses, invalid account names and the intended read-only/non-recording configuration. |
 | Installer | Shell syntax and static checks; not yet run on a fresh Pi. No end-to-end installation test is claimed. |
-| Fusion client | A read-only request successfully listed open documents from the local Fusion MCP server. Modeling scripts were syntax checked, not replayed from scratch. |
-| Native CAD | Archived v10 report: three installed single-solid parts, no unhealthy features and no positive-volume modeled interference. Camera orientation, ribbon clearance, port-access corridors and all eight direct-screw pilot cylinders were checked in CAD. v10 uses no inserts or nuts; direct PETG screw fit remains untested. |
-| STL artifacts | All five meshes rechecked for connected components, closed edges, consistent winding and positive volume; the SHA-256 manifest ties the reports and exports to exact files. |
+| Fusion client | A read-only request successfully listed open documents from the local Fusion MCP server. The v12 builder was executed from the archived v11 native file, followed by the v12 native validator. The full chain of historical builders was not replayed. |
+| Native CAD | v12: ten installed single-solid parts, no unhealthy features or positive-volume modeled interference in clamped and retracted poses. Native checks include two closed battery strap loops and overlaps, 16 roof/strap/guard volume probes, the 45° guard interior, camera orientation, nominal lower ribbon, cable/port access and eight PCB screw pilots. No heat-set inserts; eight ordinary hex nuts. Physical fit remains untested. |
+| STL artifacts | All seven v12 meshes checked for connected components, closed edges, consistent winding and positive volume; the SHA-256 manifest ties the reports and exports to exact files. |
 | Physical prototype | No completed print, slicer project, physical load test, snap-force test, cable-fit test or thermal/creep test is recorded. |
 | Battery | No inline power meter or measured runtime. The 4–8 hour goal remains unverified with the intended battery. |
 | Attendance backend | Local YOLOX/ByteTrack pipeline, directional counter, SQLite aggregates, authenticated dashboard and CSV export implemented. Twenty-one Python tests pass, including synthetic tracking-to-counting integration, API access, persistence and loopback transport configuration. Real overhead counting accuracy remains unmeasured. |
@@ -25,4 +25,4 @@ Latest camera-path check on November 9: direct Pi RTSP decoded advancing 1920×1
 | PH Redis and bridge | Uses the existing shared TLS Redis service at `redis.phack.sh:6379`, with the saved dedicated `attendance` account from `/etc/redis/acl.conf` and application namespace `attendance:v1`. `attendance-bridge.service` is enabled and active under `p-attendance`, with `Linger=yes`, zero restarts, about 8 MiB current memory and a 9.1 MiB observed peak during the live test. The saved ACL credential is synchronized with runtime, Vercel and the bridge; the temporary previous credential has been removed. Authentication adds expiring Redis state; footage remains transient. |
 | Pi publisher | ARM64 Linux binary built for the previously observed Debian 13/aarch64 Pi; 2,479,336 bytes, SHA-256 `b4c240999cd66f37e1213ef8f36c0480a589737294f3179532fcdb9631a1b514`. Binary, private configuration, unit and installer are staged in the local and server `local/pi-publisher/` directories. Not installed or executed on the Pi because SSH still closes before login. The configured counting source is the old SSH tunnel, which was unavailable at the latest check. |
 
-Do not interpret a running systemd service as proof of playback on every client, or closed STL geometry as proof of structural strength. Use the v10 print and assembly instructions for the remaining physical checks.
+Do not interpret a running systemd service as proof of playback on every client, or closed STL geometry as proof of structural strength. Use the v12 print and assembly instructions for the remaining physical checks.

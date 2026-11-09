@@ -1,10 +1,10 @@
 # CAD sources and exports
 
-**Use `v11/` for the current prototype.** It replaces the fixed friction hooks with padded, hand-adjusted screw clamps and separates the parts for flatter printing. See the [hardware and assembly guide](../docs/hardware/v11/README.md).
+**Use `v12/` for the current prototype.** It encloses the camera guard, removes stray roof holes and clears both battery strap routes. The padded hand-adjusted clamps and seven-model print layout remain. See the [hardware and assembly guide](../docs/hardware/v12/README.md).
 
-Open [doorframe-camera-clamped-v11.f3d](v11/doorframe-camera-clamped-v11.f3d) in Autodesk Fusion for editing. The [STEP](v11/doorframe-camera-clamped-v11.step) includes reference electronics, hardware and the frame. The [seven oriented STLs](v11/stl) produce ten installed parts: print 05, 06 and 07 twice, and 01–04 once. No coupons or gauges are included.
+Open [doorframe-camera-clamped-v12.f3d](v12/doorframe-camera-clamped-v12.f3d) in Autodesk Fusion for editing. The [STEP](v12/doorframe-camera-clamped-v12.step) includes reference electronics, hardware and the frame. The [seven oriented STLs](v12/stl) produce ten installed parts: print 05, 06 and 07 twice, and 01–04 once. No coupons or gauges are included.
 
-The [operator notes](v11/PRINT-ADMIN-NOTES.md) describe printing requirements. Native checks include assembled/released clamp positions and fastener/ribbon/port clearances. All seven meshes are closed and connected. Physical fit and loaded retention remain untested. Reports at this directory's root and in older revisions are historical.
+The [operator notes](v12/PRINT-ADMIN-NOTES.md) describe printing requirements. Native checks include assembled/released clamp positions and fastener/ribbon/port clearances. All seven meshes are closed and connected. Physical fit and loaded retention remain untested. Reports at this directory's root and in older revisions are historical.
 
 ## Development history
 
@@ -19,7 +19,8 @@ The Python files in `scripts/` preserve the modeling and inspection work, includ
 | `v8/` | Logo development; superseded due to a nonmanifold point contact. Do not print this revision. |
 | `v9/` | Reinforced hooks, clip-root fillets and corrected logo; archived small heat-set insert variant |
 | `v10/` | Archived fixed friction mount; direct PETG PCB screw pilots |
-| `v11/` | Current adjustable clamps, ten installed pieces from seven models, flatter print layout; no coupons |
+| `v11/` | Archived adjustable clamps; superseded camera guard and obstructed battery strap route |
+| `v12/` | Current enclosed camera guard, full-width strap routes and clean roof; ten installed pieces, no coupons |
 
 Historical native files and reports are retained; duplicate ZIPs, obsolete preview images and old STL exports are omitted. Opening a native archive does not require replaying the modeling scripts.
 
@@ -38,15 +39,15 @@ python3 cad/scripts/fusion_client.py script cad/scripts/inspect.py --read-only
 
 Override the endpoint with `FUSION_MCP_URL` if needed. `FUSION_MCP_SESSION` optionally supplies an existing session; do not commit one. The wrapper imports scripts inside Fusion so their `__file__`-relative output paths work. Local Python does not provide the `adsk` API.
 
-## Updating v11 artifacts
+## Updating v12 artifacts
 
-`scripts/build_clamped_v11.py` imports the v10 archive into a **new** document and builds the revised parts. `scripts/validate_v11.py` runs once on that fresh document, verifies geometry, and exports the native archive, STEP, previews and model-coordinate meshes. `scripts/prepare_v11_meshes.py` then orients the fresh STLs exactly once and verifies mesh topology. The named native features remain editable; layout constants are in the builder, and its informational `v11_*` parameters do not independently drive every sketch.
+`scripts/build_clamped_v12.py` imports the archived v11 native file into a **new** document and builds the cleanup. `scripts/validate_v12.py` checks the assembled and retracted geometry, runs the cable and cleanup probes, then exports native/STEP files, previews and model-coordinate STLs. `scripts/prepare_v12_meshes.py` orients these fresh meshes exactly once and verifies their topology. Do not reorient already prepared STLs.
 
-`scripts/package_v11.py` creates a delivery ZIP containing ten installed STL files (the repeated parts are duplicated for convenience) and separate operator notes. It does not add coupons. Regenerate the manifest after intentional changes, then run `python3 scripts/check_artifacts.py`.
+`scripts/check_v12_cleanup.py` verifies actual solid/void regions at the repaired roof, tether holes, strap slots and channels, plus the guard walls, notch and 45-degree interior. Closed strap envelopes and their front overlaps participate in the full assembly collision check. `scripts/check_v12_cables.py` checks the plug, grip and external cable envelopes; it does not verify actual connector CAD or the full CSI route. Both checks can run read-only on the assembled v12 document.
 
-`scripts/check_v11_cables.py` is called by the native validator and can also inspect the assembled v11 document in read-only mode. It checks specified plug and external cable envelopes, not actual connector CAD or the full CSI route. `scripts/draw_v11_cables.py` draws the plan-view routing guide from its JSON report.
+`scripts/draw_v12_cables.py` generates the cable plan from the native report. `scripts/package_v12.py` creates the ten-STL delivery ZIP and separate plain-text operator notes. After intentional changes, regenerate the manifest and run `python3 scripts/check_artifacts.py`. The native script and layout constants drive the new geometry; inherited informational parameters do not independently drive every sketch.
 
-The scripts use `__file__`-relative paths and should be loaded through the Fusion MCP helper or an equivalent native script import. Read the source before execution; the export/preview step temporarily lays out the installed occurrences and restores the assembly before saving.
+The scripts use paths relative to `__file__` and should be loaded through the Fusion MCP helper or an equivalent native script import. Read the source before execution. Exporting previews temporarily lays out the occurrences and restores the assembly before saving. The v11 builder and validator remain available for historical reconstruction.
 
 ## Updating archived v10 artifacts
 

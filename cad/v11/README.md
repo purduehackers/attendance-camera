@@ -1,5 +1,7 @@
 # attendance-camera v11
 
+**Archived. Use [v12](../v12/README.md) for the enclosed guard and corrected battery strap clearance.**
+
 Adjustable padded clamps replace v10's fixed friction hooks. Two identical C brackets print on their broad sides and attach to the case with bench-installed screws. Hand knobs drive metal M5 screws against separate padded pressure shoes after hanging. Nothing screws into the doorframe.
 
 - [Fusion source](doorframe-camera-clamped-v11.f3d)

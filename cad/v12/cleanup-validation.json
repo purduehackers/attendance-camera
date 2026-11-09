@@ -1,0 +1,113 @@
+{
+  "revision": "v12",
+  "native_volume_probes": [
+    {
+      "name": "Closed roof fragment (96, -8)",
+      "expected": "solid",
+      "passed": true
+    },
+    {
+      "name": "Closed roof fragment (96, 14)",
+      "expected": "solid",
+      "passed": true
+    },
+    {
+      "name": "Closed roof fragment (108, -8)",
+      "expected": "solid",
+      "passed": true
+    },
+    {
+      "name": "Closed roof fragment (108, 14)",
+      "expected": "solid",
+      "passed": true
+    },
+    {
+      "name": "Retained tether slot 99",
+      "expected": "clear",
+      "passed": true
+    },
+    {
+      "name": "Retained tether slot 112",
+      "expected": "clear",
+      "passed": true
+    },
+    {
+      "name": "Full-width strap slot (38, -10.8)",
+      "expected": "clear",
+      "passed": true
+    },
+    {
+      "name": "Full-width strap slot (38, 18.6)",
+      "expected": "clear",
+      "passed": true
+    },
+    {
+      "name": "Rear strap channel 38",
+      "expected": "clear",
+      "passed": true
+    },
+    {
+      "name": "Full-width strap slot (72, -10.8)",
+      "expected": "clear",
+      "passed": true
+    },
+    {
+      "name": "Full-width strap slot (72, 18.6)",
+      "expected": "clear",
+      "passed": true
+    },
+    {
+      "name": "Rear strap channel 72",
+      "expected": "clear",
+      "passed": true
+    },
+    {
+      "name": "Closed camera side wall 87",
+      "expected": "solid",
+      "passed": true
+    },
+    {
+      "name": "Closed camera side wall 117",
+      "expected": "solid",
+      "passed": true
+    },
+    {
+      "name": "Ribbon notch mouth",
+      "expected": "clear",
+      "passed": true
+    },
+    {
+      "name": "Small notch bridge",
+      "expected": "solid",
+      "passed": true
+    }
+  ],
+  "guard_conical_half_angles_deg": [
+    45.000000000000014
+  ],
+  "lens_aperture_diameter_mm": 22,
+  "guard_print_orientation": "open rim down",
+  "guard_ribbon_notch_final_bridge_mm": 6,
+  "strap_width_mm": 10,
+  "strap_thickness_envelope_mm": 1.5,
+  "closure_overlap_thickness_mm": 3,
+  "strap_centers_x_mm": [
+    44,
+    78
+  ],
+  "strap_slot_dimensions_mm": [
+    12,
+    2.2
+  ],
+  "strap_model_count": 2,
+  "strap_collision_check": "Full closed loops and overlap included in assembly interference check",
+  "remaining_wall_behind_recess_mm": 1.6,
+  "physical_fit_tested": false,
+  "slicer_verified": false,
+  "not_verified": [
+    "Actual strap thickness and fastening loop geometry",
+    "Full CSI cable and connector route",
+    "Lens barrel height and entrance pupil",
+    "Printed clip fit and physical retention"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "printer_target": "Bambu Lab H2D Pro",
+  "material": "PETG",
+  "nozzle_mm": 0.4,
+  "layer_mm": 0.2,
+  "walls": 6,
+  "infill_percent": 30,
+  "infill_pattern": "gyroid",
+  "top_bottom_layers": 6,
+  "clamp_infill_percent": 100,
+  "units": "mm",
+  "scale_percent": 100,
+  "supports": "selective removable, operator reviews layer preview",
+  "preserve_STL_orientations": true,
+  "slicer_verified": false,
+  "coupons": false
+}

@@ -1,0 +1,111 @@
+{
+  "revision": "v12",
+  "inserts": [],
+  "screws": [
+    {
+      "quantity": 2,
+      "size": "M5 x 30",
+      "standard": "DIN 933",
+      "head": "hex",
+      "head_af_mm": 8,
+      "head_height_mm": 3.5,
+      "pitch_mm": 0.8,
+      "fully_threaded": true,
+      "purpose": "adjustable clamps"
+    },
+    {
+      "quantity": 6,
+      "size": "M3 x 10",
+      "standard": "ISO 7380-1",
+      "head": "button socket",
+      "head_diameter_mm": 5.7,
+      "head_height_mm": 1.65,
+      "hex_key_mm": 2,
+      "pitch_mm": 0.5,
+      "purpose": "bench attachment"
+    },
+    {
+      "quantity": 4,
+      "size": "M2.5 x 6",
+      "standard": "ISO 4762 / DIN 912",
+      "head": "socket cap",
+      "purpose": "Pi",
+      "pilot_mm": 2.1
+    },
+    {
+      "quantity": 4,
+      "size": "M2 x 4",
+      "standard": "ISO 4762 / DIN 912",
+      "head": "socket cap",
+      "purpose": "camera",
+      "pilot_mm": 1.7
+    }
+  ],
+  "nuts": [
+    {
+      "quantity": 2,
+      "size": "M5",
+      "standard": "DIN 934",
+      "across_flats_mm": 8,
+      "height_mm": 4,
+      "pocket_af_mm": 8.3,
+      "pocket_depth_mm": 4.3
+    },
+    {
+      "quantity": 6,
+      "size": "M3",
+      "standard": "DIN 934",
+      "across_flats_mm": 5.5,
+      "height_mm": 2.4,
+      "pocket_af_mm": 5.8,
+      "pocket_depth_mm": 4
+    }
+  ],
+  "washers": [
+    {
+      "quantity": 6,
+      "size": "M3",
+      "standard": "DIN 125 A / ISO 7089",
+      "id_mm": 3.2,
+      "od_mm": 7,
+      "thickness_mm": 0.5
+    }
+  ],
+  "pads": [
+    {
+      "quantity": 2,
+      "size_mm": [
+        20,
+        10,
+        3
+      ]
+    },
+    {
+      "quantity": 2,
+      "size_mm": [
+        20,
+        9,
+        3
+      ]
+    },
+    {
+      "quantity": 2,
+      "size_mm": [
+        20,
+        16,
+        3
+      ]
+    }
+  ],
+  "shoe_retaining_loops": 2,
+  "battery_straps_10mm": 2,
+  "independent_tether": 1,
+  "assembly_screws_at_height": false,
+  "two_clamp_knobs_tightened_after_hanging": true,
+  "installed_prints": 10,
+  "unique_print_models": 7,
+  "physical_fit_tested": false,
+  "clamp_load_tested": false,
+  "battery_strap_max_thickness_mm": 1.5,
+  "battery_strap_max_closure_thickness_mm": 3
+}
