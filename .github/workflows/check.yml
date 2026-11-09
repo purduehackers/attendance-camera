@@ -13,6 +13,13 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           version: '0.13.7'
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1.4.0'
+      - run: bun install --cwd web --frozen-lockfile
+      - run: bun run --cwd web build
+      - name: Verify committed dashboard assets
+        run: git diff --exit-code -- web/built && test -z "$(git ls-files --others --exclude-standard web/built)"
       - run: sudo apt-get update && sudo apt-get install -y redis-server
       - run: cargo fmt --check
       - run: cargo clippy --locked --all-targets -- -D warnings
@@ -35,6 +42,8 @@ jobs:
           import ast
           from pathlib import Path
           for path in Path('.').rglob('*.py'):
+              if 'node_modules' in path.parts:
+                  continue
               ast.parse(path.read_text(), filename=str(path))
           PY
   server:

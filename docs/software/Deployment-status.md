@@ -1,18 +1,25 @@
 # Deployment handoff — November 9, 2026
 
-The authenticated dashboard is live at **https://attendance.purduehackers.com**. Use the existing `organizer` login. The Vercel project is `attendance-camera` in the `purdue-hackers` team and deploys from this repository's `main` branch.
+The authenticated dashboard is live at **https://attendance.purduehackers.com**. Sign in with Purdue Hackers ID; only the signed `organizer` or `admin` role is accepted. Sessions expire after one hour. The Vercel project is `attendance-camera` in the `purdue-hackers` team and deploys from this repository's `main` branch.
 
 Both `attendance-server.service` and `attendance-bridge.service` run as enabled systemd user services under `p-attendance`. The Redis service is the existing shared PH instance; nothing was provisioned on Upstash. Video uses transient Pub/Sub messages, while the counting worker keeps aggregate records in its existing SQLite database.
 
-## Remaining: persist the Redis account
+## ID, dashboard, and Redis
 
-The new `attendance` ACL works now, but `ACL SAVE` fails because the shared container mounts `/etc/redis` read-only. The SSH account can read the shared ACL configuration but cannot change it. A server admin must run this on `hackers`:
+The public dashboard uses the official Purdue Hackers Astro components and theme.
+The Rust relay handles OpenID Connect with PKCE, browser-bound state, nonce and
+signature verification. The registered callback is
+`https://attendance.purduehackers.com/api/auth/callback/purduehackers` and the
+requested scopes are `openid profile roles`. Client secrets stay in private
+Vercel environment variables. The old shared browser password is no longer
+accepted by the public relay; the worker keeps its separate loopback credential.
 
-```bash
-sudo sh -c 'grep -q "^user attendance " /etc/redis/acl.conf || cat /proj/attendance/attendance-camera/local/redis-attendance.acl >> /etc/redis/acl.conf'
-```
-
-The prepared file contains only the project user, a strong password's SHA-256 hash, and its limited permissions. It contains no other project's credentials. No restart is needed; the account already exists in the running Redis process. Confirm the new line is present before restarting Redis. Do not remove or replace other ACL lines.
+The `attendance` user now exists in `/etc/redis/acl.conf`. Its saved credential
+has been verified over TLS, loaded into the bridge and Vercel, and synchronized
+with the running Redis user. The temporary previous password was removed.
+The old generated `local/redis-attendance.acl` is superseded; do not append it.
+Short-lived authentication state uses expiring `attendance:v1:auth:*` keys.
+Video and control messages continue to use transient Pub/Sub.
 
 ## Remaining: install the Pi publisher
 

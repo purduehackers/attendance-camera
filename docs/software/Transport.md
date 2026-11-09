@@ -1,6 +1,6 @@
 # Video transport and public dashboard
 
-The Rust transport connects the Pi to the PH counting service through Vercel and the existing PH Redis server. The organizer dashboard is intended for `https://attendance.purduehackers.com`. It requires the existing `organizer` login; camera publishing uses a separate token.
+The Rust transport connects the Pi to the PH counting service through Vercel and the existing PH Redis server. The organizer dashboard is intended for `https://attendance.purduehackers.com`. It uses Purdue Hackers ID and requires a verified `organizer` or `admin` role; camera publishing uses a separate token.
 
 ```mermaid
 flowchart LR
@@ -17,7 +17,7 @@ Rust owns the transport, reconnect buffering, authentication and HTTP relay. The
 
 ## What is stored
 
-The Pi remuxes H.264 into MPEG-TS with FFmpeg `-c:v copy`; it does not re-encode. Compressed video travels through Vercel and the shared PH Redis instance. Redis **Pub/Sub only** is used: no video keys, streams, lists or recordings are created. Pub/Sub payloads are not included in Redis snapshots. The Pi retains at most two seconds / 4 MiB of unacknowledged compressed data in RAM. The bridge and decoder have bounded live buffers. Preview JPEGs travel through the authenticated dashboard API and are not saved by the application. Aggregate session data stays in the existing PH SQLite database.
+The Pi remuxes H.264 into MPEG-TS with FFmpeg `-c:v copy`; it does not re-encode. Compressed video travels through Vercel and the shared PH Redis instance. For video and control, Redis **Pub/Sub only** is used: no video keys, streams, lists or recordings are created. Pub/Sub payloads are not included in Redis snapshots. The Pi retains at most two seconds / 4 MiB of unacknowledged compressed data in RAM. The bridge and decoder have bounded live buffers. Preview JPEGs travel through the authenticated dashboard API and are not saved by the application. Aggregate session data stays in the existing PH SQLite database. Authentication uses expiring Redis keys: ten-minute login state (PKCE verifier, nonce and hashed browser binding), one-hour opaque sessions (hashed key, authorization marker only), and a one-minute login rate counter. Provider tokens and profile details are not retained.
 
 This architecture sends live imagery through Vercel. It is not an entirely local video path. Application logs contain neither frames nor credentials; no recording/upload/archive endpoints are provided.
 
@@ -25,13 +25,7 @@ This architecture sends live imagery through Vercel. It is not an entirely local
 
 Use the existing shared service at `redis.phack.sh:6379`, with a `rediss://` URL and normal CA/hostname verification. On November 9, 2026 its certificate verified for that hostname; the older `redis.server.purduehackers.com` name did not. Do not work around a mismatch by disabling verification.
 
-Use a dedicated `attendance` ACL, with channel access restricted to `attendance:*` and only these commands:
-
-```text
-user attendance on #PASSWORD_SHA256 resetkeys resetchannels ~attendance:* &attendance:* -@all +ping +publish +subscribe +unsubscribe +client|setinfo +client|setname
-```
-
-An admin must put the real hashed ACL line in the shared server's `/etc/redis/acl.conf`. A runtime `ACL SETUSER` alone does **not** survive a Redis restart. The shared container mounts that configuration read-only, so `ACL SAVE` cannot persist a new user. Never edit other projects' ACLs or copy their credentials. The project does not need database read/write or administration commands.
+Use the dedicated `attendance` user and its password from `/etc/redis/acl.conf` on the PH server. That saved account is now synchronized with the running Redis instance and both deployment configurations. Do not copy other projects' credentials or append the superseded generated ACL file. The application only uses the `attendance:*` namespace; the current administrator-provided ACL has broader key/channel permissions. Authentication needs `GET`, `GETDEL`, `SET`, `DEL`, `EXISTS`, `INCR`, `EXPIRE` and Lua script execution in addition to Pub/Sub. No administration or dangerous commands are required during normal operation.
 
 Production uses namespace `attendance:v1`. Local integration tests use an isolated Redis process and random namespace. Keep only one production bridge and one Pi publisher active.
 
@@ -41,13 +35,18 @@ The root Cargo manifest defines the native Vercel Rust function at `api/relay.rs
 
 - `REDIS_URL`: shared Redis URL for the project's ACL user.
 - `REDIS_NAMESPACE=attendance:v1`.
-- `ATTENDANCE_TOKEN`: same organizer password as the PH worker (at least 32 characters).
+- `PH_ID_CLIENT_ID` and `PH_ID_CLIENT_SECRET`: the registered Purdue Hackers ID application.
+- Register callback `https://attendance.purduehackers.com/api/auth/callback/purduehackers` and allow scopes `openid profile roles`.
 - `CAMERA_TOKEN`: a different randomly generated password (at least 32 characters).
 - `PUBLIC_ORIGIN=https://attendance.purduehackers.com`.
 
 Do not give production credentials to fork/preview builds. Local relay testing uses `RELAY_BIND=127.0.0.1:3000` and `PUBLIC_ORIGIN=http://127.0.0.1:3000`. Only loopback Redis may use unencrypted `redis://`.
 
-The browser serves the existing dashboard. Requests are forwarded to a fixed allowlist of counting API routes through correlated Pub/Sub requests and replies. Arbitrary URLs, paths and headers are not forwarded. Mutations require the configured origin when an Origin header is present. Request bodies are capped at 16 KiB, replies at 1 MiB, with bounded timeouts. Repeated delivery of the same command ID is deduplicated for one minute in the bridge. This is not a durable job queue: an ambiguous response after a worker crash must be checked in the dashboard before retrying.
+The Rust relay embeds the static Astro dashboard in `web/built/`, built from the official Purdue Hackers components and theme. Rebuild with `bun install --cwd web --frozen-lockfile` and `bun run --cwd web build` before Cargo when changing the UI; commit source and generated output together. CI checks for drift.
+
+ID sign-in uses authorization code + PKCE S256, a browser-bound random state, a nonce, and the provider's current discovery/JWKS. The OIDC library verifies signature, issuer, audience, expiration and nonce; the relay also verifies `at_hash` when supplied. Only signed `organizer`/`admin` roles create a session. `__Host-attendance` is Secure, HttpOnly and SameSite=Lax; it expires after one hour or earlier if the ID token expires. Roles are rechecked on the next login; removing a role may take up to that session lifetime to take effect. POST sign-out revokes the Redis session. Unauthenticated pages redirect to sign-in, while private API calls return 401. The provider's login session is not logged out globally. No public Basic-auth fallback exists. The PH bridge still uses `ATTENDANCE_TOKEN` for its private loopback API.
+
+ Requests are forwarded to a fixed allowlist of counting API routes through correlated Pub/Sub requests and replies. Arbitrary URLs, paths and headers are not forwarded. Browser mutations require an Origin header matching the configured public origin exactly. Request bodies are capped at 16 KiB, replies at 1 MiB, with bounded timeouts. Repeated delivery of the same command ID is deduplicated for one minute in the bridge. This is not a durable job queue: an ambiguous response after a worker crash must be checked in the dashboard before retrying.
 
 ## PH bridge service
 
@@ -106,4 +105,4 @@ uv run scripts/test_transport.py
 uv run pytest -q
 ```
 
-The integration test starts an isolated Redis instance, two relay processes, a bridge and a fixture backend. It checks authentication, CSRF, request limits, cross-instance packet delivery, duplicate suppression, a forced video gap, planned socket rotation, command deduplication, and zero stored Redis keys. Synthetic transport checks are not camera/counting accuracy validation.
+The integration test starts an isolated Redis instance, two relay processes, a bridge, a fixture backend and a local Ed25519 OIDC issuer. It checks authentication, CSRF, request limits, cross-instance packet delivery, duplicate suppression, a forced video gap, planned socket rotation, command deduplication, signed organizer/admin authorization, rejected roles and invalid tokens, browser-bound state, callback replay rejection, logout, session expiry, and only expiring authentication keys in Redis. Synthetic transport checks are not camera/counting accuracy validation.

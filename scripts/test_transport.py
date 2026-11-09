@@ -1,6 +1,6 @@
 # /// script
 # requires-python = ">=3.12"
-# dependencies = ["httpx>=0.28,<1", "websockets>=15,<17", "redis>=6,<8"]
+# dependencies = ["httpx>=0.28,<1", "websockets>=15,<17", "redis>=6,<8", "pyjwt[crypto]>=2.10,<3"]
 # ///
 """Exercise real Redis + two Rust relay processes + bridge, without camera footage.
 
@@ -22,11 +22,13 @@ import tempfile
 import threading
 import time
 import uuid
+from urllib.parse import parse_qs, urlsplit, urlencode
 
 import httpx
 import redis.asyncio as redis
 from websockets.asyncio.client import connect
 from websockets.exceptions import ConnectionClosed, InvalidStatus
+from oidc_fixture import Identity
 
 
 def port():
@@ -67,7 +69,7 @@ async def wait_ready(http, url):
 
 
 async def check(stack, directory):
-    redis_port, bridge_port, backend_port, a_port, b_port = [port() for _ in range(5)]
+    redis_port, bridge_port, backend_port, a_port, b_port, id_port = [port() for _ in range(6)]
     namespace = "attendance:test-" + uuid.uuid4().hex
     token, camera = "organizer-test-" + "x" * 32, "camera-test-" + "y" * 32
     processes = []
@@ -95,10 +97,17 @@ async def check(stack, directory):
     threading.Thread(target=backend.serve_forever, daemon=True).start()
     stack.callback(backend.server_close)
     stack.callback(backend.shutdown)
+    Identity.issuer = f"http://127.0.0.1:{id_port}"
+    identity = ThreadingHTTPServer(("127.0.0.1", id_port), Identity)
+    threading.Thread(target=identity.serve_forever, daemon=True).start()
+    stack.callback(identity.server_close)
+    stack.callback(identity.shutdown)
     env = {**os.environ, "REDIS_URL": f"redis://127.0.0.1:{redis_port}",
            "REDIS_NAMESPACE": namespace, "ATTENDANCE_TOKEN": token, "CAMERA_TOKEN": camera,
            "BRIDGE_BIND": f"127.0.0.1:{bridge_port}",
            "ATTENDANCE_BACKEND": f"http://127.0.0.1:{backend_port}",
+           "PH_ID_CLIENT_ID": Identity.client_id, "PH_ID_CLIENT_SECRET": Identity.client_secret,
+           "PH_ID_ISSUER": Identity.issuer,
            "RELAY_SESSION_SECONDS": "3", "PUBLIC_ORIGIN": f"http://127.0.0.1:{a_port}"}
     await asyncio.sleep(0.15)
     spawn(["target/debug/attendance-bridge"], env)
@@ -107,16 +116,59 @@ async def check(stack, directory):
     a, b, bridge = [f"http://127.0.0.1:{p}" for p in (a_port, b_port, bridge_port)]
     async with httpx.AsyncClient(timeout=5) as http:
         await asyncio.gather(*(wait_ready(http, url) for url in (a, b, bridge)))
-        auth = ("organizer", token)
         assert (await http.get(a + "/api/status")).status_code == 401
-        assert (await http.get(a + "/", auth=auth)).status_code == 200
+        assert (await http.get(a + "/api/status", auth=("organizer", token))).status_code == 401
+        assert (await http.get(a + "/")).headers["location"] == "/login"
+        assert (await http.get(a + "/login")).status_code == 200
+
+        async def begin(scenario="organizer"):
+            response = await http.get(a + "/api/auth/login")
+            assert response.status_code == 303, response.text
+            query = parse_qs(urlsplit(response.headers["location"]).query)
+            assert set(query["scope"][0].split()) == {"openid", "profile", "roles"}
+            assert query["code_challenge_method"] == ["S256"]
+            assert query["redirect_uri"] == [a + "/api/auth/callback/purduehackers"]
+            assert "HttpOnly" in response.headers["set-cookie"] and "SameSite=Lax" in response.headers["set-cookie"]
+            code = Identity.code(query, scenario)
+            return b + "/api/auth/callback/purduehackers?" + urlencode({"code": code, "state": query["state"][0], "iss": Identity.issuer})
+
+        for scenario in ("alumni", "member", "missing-role", "wrong-nonce", "wrong-audience", "wrong-issuer", "expired", "wrong-signature", "wrong-hash"):
+            http.cookies.clear()
+            callback = await begin(scenario)
+            response = await http.get(callback)
+            expected = "forbidden" if scenario in ("alumni", "member", "missing-role") else "failed"
+            assert response.headers["location"] == f"/login?reason={expected}", (scenario, response.headers)
+            assert (await http.get(a + "/api/status")).status_code == 401
+        http.cookies.clear()
+        callback = await begin()
+        http.cookies.clear()
+        assert (await http.get(callback)).headers["location"] == "/login?reason=failed"
+        callback = await begin()
+        bad_state = callback.replace("state=", "state=wrong")
+        assert (await http.get(bad_state)).headers["location"] == "/login?reason=failed"
+        callback = await begin()
+        http.cookies.set("attendance-flow", "x" * 43, domain="127.0.0.1", path="/")
+        assert (await http.get(callback)).headers["location"] == "/login?reason=failed"
+        http.cookies.clear()
+        callback = await begin("admin")
+        flow_cookie = http.cookies.get("attendance-flow")
+        assert (await http.get(callback)).headers["location"] == "/"
+        http.cookies.set("attendance-flow", flow_cookie, domain="127.0.0.1", path="/")
+        assert (await http.get(callback)).headers["location"] == "/login?reason=failed", "Callback replay accepted"
+        assert (await http.post(a + "/api/auth/logout")).status_code == 403
+        assert (await http.post(a + "/api/auth/logout", headers={"Origin": a})).headers["location"] == "/login"
+        assert (await http.get(a + "/api/status")).status_code == 401
+        callback = await begin()
+        assert (await http.get(callback)).headers["location"] == "/"
+        assert (await http.get(a + "/")).status_code == 200
+        print("PASS: PKCE, signed organizer/admin roles, state binding, replay protection, invalid token rejection, logout")
         for endpoint in (a, b):
-            response = await http.get(endpoint + "/api/status", auth=auth)
+            response = await http.get(endpoint + "/api/status")
             assert response.status_code == 200 and response.json()["source"] == "fixture"
             assert response.headers["cache-control"] == "no-store"
-        assert (await http.post(a + "/api/session/end", auth=auth, headers={"Origin": "https://evil.example"})).status_code == 403
-        assert (await http.post(a + "/api/session/end", auth=auth, content=b"x" * 17_000)).status_code == 413
-        assert (await http.get(a + "/api/status?url=http://example.com", auth=auth)).status_code == 404
+        assert (await http.post(a + "/api/session/end", headers={"Origin": "https://evil.example"})).status_code == 403
+        assert (await http.post(a + "/api/session/end", headers={"Origin": a}, content=b"x" * 17_000)).status_code == 413
+        assert (await http.get(a + "/api/status?url=http://example.com")).status_code == 404
         try:
             async with connect(a.replace("http", "ws") + "/ingest", additional_headers={"Authorization": "Bearer invalid"}):
                 raise AssertionError("Unauthenticated publisher accepted")
@@ -177,7 +229,16 @@ async def check(stack, directory):
                         assert json.loads(message["data"])["status"] == 200
                         break
     assert Backend.mutations == 1
-    assert await broker.dbsize() == 0, "Video/control transport must never create Redis keys"
+    keys = [key async for key in broker.scan_iter()]
+    assert keys and all(key.startswith(f"{namespace}:auth:".encode()) for key in keys), "Only expiring authentication state may be stored"
+    assert all([0 < await broker.ttl(key) <= 3600 for key in keys])
+    # Expiry must be checked at every instance, not only at login.
+    for key in keys:
+        if b":session:" in key:
+            await broker.expire(key, 1)
+    await asyncio.sleep(1.1)
+    async with httpx.AsyncClient(cookies=http.cookies) as expired:
+        assert (await expired.get(b + "/api/status")).status_code == 401
     await broker.aclose()
     print("PASS: repeated command executes once; Redis contains no stored footage or RPC records")
 

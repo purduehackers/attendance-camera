@@ -1,0 +1,30 @@
+---
+import '../styles/app.css';
+import Glider from '../components/ph/Glider.astro';
+import Footer from '../components/ph/Footer.astro';
+import Button from '../components/ph/Button.astro';
+const { title = 'Attendance', authenticated = false } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title} · Purdue Hackers</title>
+  </head>
+  <body class="bg-background text-foreground">
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="shell">
+      <header class="masthead">
+        <a href="/" class="brand" aria-label="Purdue Hackers attendance"><Glider class="size-8" /><span class="ph-subheadline">Purdue Hackers</span></a>
+        {authenticated && <form action="/api/auth/logout" method="post"><Button type="submit" size="sm" variant="ghost">Sign out</Button></form>}
+      </header>
+      <main id="main"><slot /></main>
+      <Footer links={[{label:'Source',href:'https://github.com/purduehackers/attendance-camera'}]}>
+        <p>Counts are estimates, not unique attendance. No footage, face identities, or individual track histories are stored.</p>
+        <p>Organizer sign-in expires after one hour. Icons by <a href="https://github.com/hackernoon/pixel-icon-library">HackerNoon Pixel Icon Library</a> · CC BY 4.0.</p>
+      </Footer>
+    </div>
+  </body>
+</html>

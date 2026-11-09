@@ -21,3 +21,6 @@ dist/
 *.onnx
 /target/
 /.vercel/
+
+node_modules/
+.astro/

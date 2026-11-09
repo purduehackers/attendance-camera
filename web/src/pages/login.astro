@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DitherButton from '../components/ph/DitherButton.astro';
+---
+<Layout title="Sign in to attendance">
+  <section class="login">
+    <h1 class="ph-headline">Attendance</h1>
+    <p class="intro">A live estimate of who's here.</p>
+    <p>Sign in with Purdue Hackers ID to view counts, check the camera, and manage a Hack Night session.</p>
+    <div id="login-error" class="message" role="alert" hidden></div>
+    <DitherButton href="/api/auth/login">Sign in with Purdue Hackers ID</DitherButton>
+    <p class="text-sm">Access is limited to organizers and admins.</p>
+  </section>
+</Layout>
+<script>
+  const reason = new URLSearchParams(location.search).get('reason');
+  const messages: Record<string, string> = {
+    forbidden: 'This account does not have the organizer or admin role. Sign in with an authorized account.',
+    failed: 'Sign-in did not complete or the link expired. Please try again.',
+    unavailable: 'Sign-in is temporarily unavailable. Please try again shortly.',
+  };
+  const error = document.getElementById('login-error')!;
+  if (reason && messages[reason]) { error.textContent = messages[reason]; error.hidden = false; }
+</script>

@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/ph/Button.astro';
+import DitherButton from '../components/ph/DitherButton.astro';
+import Field from '../components/ph/Field.astro';
+import Input from '../components/ph/Input.astro';
+import Badge from '../components/ph/Badge.astro';
+const limits = [
+  ['position', 'Line position (%)', 10, 90, 50, 1],
+  ['deadband', 'Boundary buffer (%)', 0.5, 15, 4, 0.5],
+  ['x_min', 'Region left (%)', 0, 90, 10, 1],
+  ['y_min', 'Region top (%)', 0, 90, 10, 1],
+  ['x_max', 'Region right (%)', 10, 100, 90, 1],
+  ['y_max', 'Region bottom (%)', 10, 100, 90, 1],
+] as const;
+---
+<Layout authenticated>
+  <div class="page-title">
+    <div><h1 class="ph-headline">Attendance</h1><p class="intro">A live estimate of who's here.</p></div>
+    <Badge color="outline"><span id="connection" role="status">Connecting…</span></Badge>
+  </div>
+  <div id="notice" role="status" class="message" hidden></div>
+  <div id="error" role="alert" class="message" hidden></div>
+  <section class="counts" aria-label="Attendance counts">
+    <div class="count main-count"><span class="ph-subheadline">Estimated occupancy</span><strong id="occupancy">—</strong><p>People in the room</p></div>
+    <div class="count"><span class="ph-subheadline">Entrances</span><strong id="incoming">—</strong><p>Includes people returning</p></div>
+    <div class="count"><span class="ph-subheadline">Exits</span><strong id="outgoing">—</strong><p>Since the session started</p></div>
+  </section>
+  <section class="panel">
+    <div class="section-head"><h2 class="ph-headline">Session</h2><span id="session-state">No active session</span></div>
+    <form id="session-form" class="session-controls">
+      <Field for="headcount" label="Current headcount"><Input id="headcount" type="number" min="0" max="10000" value="0" required /></Field>
+      <DitherButton id="start" type="submit" disabled>Start session</DitherButton>
+      <Button id="reconcile" type="button" variant="outline" disabled>Correct occupancy</Button>
+      <Button id="end" type="button" variant="ghost" disabled>End session</Button>
+    </form>
+    <p class="help">Start with an actual headcount. Correct it after interruptions or missed crossings.</p>
+  </section>
+  <section class="panel">
+    <div class="section-head"><h2 class="ph-headline">Counting boundary</h2><Button id="preview-toggle" variant="outline" type="button" aria-expanded="false" aria-controls="preview-wrap">Show live preview</Button></div>
+    <div id="preview-wrap" hidden><img id="preview" alt="Live camera view with counting region, line and track centers" /><p class="help">Live frames stay in memory. No footage is recorded.</p></div>
+    <form id="calibration-form">
+      <fieldset id="calibration-fields" disabled>
+        <legend class="sr-only">Counting boundary settings</legend>
+        <div class="fields">
+          <Field for="axis" label="Line direction"><select id="axis"><option value="y">Horizontal</option><option value="x">Vertical</option></select></Field>
+          <Field for="inside" label="Entrance moves toward"><select id="inside"><option value="positive">Bottom / right</option><option value="negative">Top / left</option></select></Field>
+          {limits.map(([id,label,min,max,value,step]) => <Field for={id} label={label}><Input id={id} type="number" min={min} max={max} step={step} value={value} required /></Field>)}
+        </div>
+        <p class="help">Keep the region around the passage. Place the line where each person is visible on both sides, and check a walk in each direction.</p>
+        <Button type="submit">Save calibration</Button>
+      </fieldset>
+    </form>
+  </section>
+  <section class="panel history">
+    <h2 class="ph-headline">Recent sessions</h2>
+    <div class="table-wrap"><table><thead><tr><th>Started</th><th>Status</th><th>In</th><th>Out</th><th>Counts</th></tr></thead><tbody id="sessions"></tbody></table></div>
+    <p id="no-sessions" class="help" hidden>No sessions yet. Your completed sessions will appear here.</p>
+  </section>
+</Layout>
+<script>
+  import '../scripts/dashboard.js';
+</script>

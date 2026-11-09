@@ -14,3 +14,6 @@ install
 *.key
 uv.lock
 pyproject.toml
+
+web/node_modules
+web/.astro
