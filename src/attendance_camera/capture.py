@@ -1,4 +1,4 @@
-"""Drain RTSP continuously into a single in-memory frame, avoiding a stale queue."""
+"""Drain RTSP or the local MPEG-TS bridge into one current in-memory frame."""
 
 import threading
 import time
@@ -31,10 +31,13 @@ class LatestFrame:
     def _read(self):
         while not self.stop_event.is_set():
             try:
+                options = {"fflags": "nobuffer", "max_delay": "500000"}
+                if self.url.startswith(("rtsp://", "rtsps://")):
+                    options["rtsp_transport"] = "tcp"
                 with av.open(
                     self.url,
                     timeout=(5, 5),
-                    options={"rtsp_transport": "tcp", "fflags": "nobuffer", "max_delay": "500000"},
+                    options=options,
                 ) as source:
                     with self.lock:
                         self.generation += 1

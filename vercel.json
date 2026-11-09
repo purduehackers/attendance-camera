@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "regions": ["cle1"],
+  "functions": {
+    "api/relay.rs": { "maxDuration": 300 }
+  },
+  "rewrites": [{ "source": "/(.*)", "destination": "/api/relay" }]
+}

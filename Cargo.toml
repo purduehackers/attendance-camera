@@ -1,0 +1,44 @@
+[package]
+name = "attendance-transport"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+path = "transport/src/lib.rs"
+
+[[bin]]
+name = "relay"
+path = "api/relay.rs"
+
+[[bin]]
+name = "attendance-bridge"
+path = "transport/src/bin/bridge.rs"
+
+[[bin]]
+name = "camera-publisher"
+path = "transport/src/bin/publisher.rs"
+
+[dependencies]
+anyhow = "1"
+async-stream = "0.3"
+axum = { version = "0.8", features = ["ws"] }
+base64 = "0.22"
+bytes = "1"
+futures-util = "0.3"
+redis = { version = "0.32", default-features = false, features = ["tokio-rustls-comp", "tls-rustls-webpki-roots", "connection-manager"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "stream"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+subtle = "2"
+tokio = { version = "1", features = ["full"] }
+tokio-tungstenite = { version = "0.28", features = ["rustls-tls-webpki-roots"] }
+tower = "0.5"
+url = "2"
+uuid = { version = "1", features = ["v4", "serde"] }
+vercel_runtime = { version = "2.4.1", features = ["axum"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

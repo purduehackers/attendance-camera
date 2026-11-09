@@ -78,6 +78,17 @@ def test_remote_binding_requires_password():
         Settings(host="0.0.0.0")
 
 
+def test_http_camera_is_restricted_to_local_transport():
+    assert Settings(camera_url="http://127.0.0.1:18555/cam.ts").camera_url
+    assert Settings(camera_url="rtsp://camera.local:8554/cam").camera_url
+    for url in (
+        "http://example.com/cam.ts", "http://127.0.0.1/other",
+        "http://127.0.0.1/cam.ts?url=remote", "file:///tmp/video.ts",
+    ):
+        with pytest.raises(ValueError):
+            Settings(camera_url=url)
+
+
 def test_restart_marks_existing_session_uncertain(tmp_path):
     settings = configured(tmp_path)
     first = create_app(settings, start_worker=False)

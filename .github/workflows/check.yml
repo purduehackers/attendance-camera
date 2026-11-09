@@ -3,6 +3,22 @@ on: [push, pull_request]
 permissions:
   contents: read
 jobs:
+  transport:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: astral-sh/setup-uv@v7
+        with:
+          version: '0.13.7'
+      - run: sudo apt-get update && sudo apt-get install -y redis-server
+      - run: cargo fmt --check
+      - run: cargo clippy --locked --all-targets -- -D warnings
+      - run: cargo test --locked --all-targets
+      - run: cargo build --locked --bins
+      - run: uv run scripts/test_transport.py
   check:
     runs-on: ubuntu-latest
     steps:

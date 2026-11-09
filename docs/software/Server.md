@@ -2,6 +2,8 @@
 
 The server reads the Pi's RTSP feed, detects people with YOLOX on the CPU, associates detections with ByteTrack, and counts movement across a calibrated boundary. FastAPI serves the organizer dashboard and API. SQLite stores sessions and per-minute counts.
 
+The [Rust transport](./Transport.md) adds an authenticated Vercel dashboard and Pi-to-server video path using the existing PH Redis service. It supplies the worker with a loopback MPEG-TS URL. Direct RTSP and the SSH tunnel remain supported for testing and rollback; the worker itself still runs as a systemd user service under `p-attendance`.
+
 The [project proposal](https://app.notion.com/p/309181f3b6ed810da202d23c8989e9c7) calls for rolling occupancy, local computation on PH-owned hardware and no stored personal data. This implementation does not identify people or estimate unique visitors. Someone leaving and returning creates an exit and another entrance.
 
 ## Run

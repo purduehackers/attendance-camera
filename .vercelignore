@@ -1,0 +1,16 @@
+.git
+.venv
+.env*
+local
+target
+cad
+docs
+tests
+scripts
+install
+*.sqlite3*
+*.onnx
+*.pem
+*.key
+uv.lock
+pyproject.toml

@@ -56,8 +56,16 @@ class Settings(BaseModel):
             )
         if self.camera_url:
             source = urlsplit(self.camera_url)
-            if source.scheme not in ("rtsp", "rtsps") or not source.hostname:
-                raise ValueError("camera_url must be an RTSP camera URL.")
+            local_bridge = (
+                source.scheme == "http"
+                and source.hostname in ("127.0.0.1", "::1")
+                and source.path == "/cam.ts"
+                and not source.query
+                and not source.username
+                and not source.password
+            )
+            if not source.hostname or (source.scheme not in ("rtsp", "rtsps") and not local_bridge):
+                raise ValueError("camera_url must be RTSP or a loopback HTTP /cam.ts bridge URL.")
         return self
 
 

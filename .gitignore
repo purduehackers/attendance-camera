@@ -19,3 +19,5 @@ cad/scripts/fusion-preview.png
 dist/
 *.sqlite3*
 *.onnx
+/target/
+/.vercel/
