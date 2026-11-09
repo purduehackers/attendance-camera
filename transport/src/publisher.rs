@@ -109,7 +109,7 @@ async fn capture(source: String, replay: Arc<Mutex<Replay>>) -> Result<()> {
                 "error",
                 "-rtsp_transport",
                 "tcp",
-                "-rw_timeout",
+                "-timeout",
                 "5000000",
                 "-i",
                 &source,
@@ -167,6 +167,7 @@ async fn network(endpoint: String, token: String, replay: Arc<Mutex<Replay>>) ->
             let mut request = endpoint.as_str().into_client_request()?;
             request.headers_mut().insert("authorization", format!("Bearer {token}").parse()?);
             let (mut socket, _) = timeout(Duration::from_secs(10), connect_async(request)).await??;
+            eprintln!("relay connected");
             let mut tick = tokio::time::interval(Duration::from_millis(10));
             tick.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Skip);
             let mut last = None;
