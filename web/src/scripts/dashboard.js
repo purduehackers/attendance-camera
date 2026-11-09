@@ -1,7 +1,12 @@
 const $ = id => document.getElementById(id);
-let state, initialized = false, previewOn = false, previewURL, previewBusy = false;
+let state, initialized = false, previewOn = true, previewURL, previewController;
 const percentages = ['x_min','y_min','x_max','y_max','position','deadband'];
-function error(message = '') { $('error').textContent = message; $('error').hidden = !message; }
+const errors = new Map();
+function error(source, message = '') {
+  if (message) errors.set(source, message); else errors.delete(source);
+  $('error').textContent = [...new Set(errors.values())].join(' ');
+  $('error').hidden = errors.size === 0;
+}
 async function api(path, method = 'GET', body) {
   const response = await fetch(path, {method, headers: body ? {'Content-Type':'application/json'} : {}, body: body ? JSON.stringify(body) : undefined});
   if (response.status === 401) { location.assign('/login'); throw new Error('Your session has expired. Sign in again.'); }
@@ -15,6 +20,7 @@ async function api(path, method = 'GET', body) {
 async function refresh() {
   try {
     state = await api('/api/status');
+    error('status');
     $('connection').textContent = state.mode === 'demo' ? 'Synthetic demo' : state.fresh ? 'Camera connected' : state.detail || 'Camera unavailable';
     const session = state.session;
     $('occupancy').textContent = session ? session.occupancy : '—';
@@ -33,10 +39,11 @@ async function refresh() {
       $('axis').value = state.calibration.axis; $('inside').value = state.calibration.inside;
       initialized = true; $('calibration-fields').disabled = false;
     }
-  } catch (err) { $('connection').textContent = 'Server unavailable'; $('start').disabled = true; error(err.message); }
+  } catch (err) { $('connection').textContent = 'Server unavailable'; $('start').disabled = true; error('status', err.message); }
 }
 async function sessions() {
   const rows = await api('/api/sessions'); $('sessions').replaceChildren();
+  error('history');
   $('no-sessions').hidden = rows.length > 0;
   for (const row of rows) {
     const tr = document.createElement('tr');
@@ -48,8 +55,10 @@ async function sessions() {
   }
 }
 async function change(path, method, body) {
-  error();
-  try { await api(path, method, body); await refresh(); await sessions(); } catch (err) { error(err.message); }
+  error('action');
+  try { await api(path, method, body); } catch (err) { error('action', err.message); return; }
+  await refresh();
+  await sessions().catch(err => error('history', err.message));
 }
 $('session-form').addEventListener('submit', event => { event.preventDefault(); change('/api/sessions','POST',{occupancy:Number($('headcount').value)}); });
 $('reconcile').addEventListener('click', () => {
@@ -67,18 +76,52 @@ $('preview-toggle').addEventListener('click', () => {
   previewOn = !previewOn; $('preview-wrap').hidden = !previewOn;
   $('preview-toggle').setAttribute('aria-expanded', String(previewOn));
   $('preview-toggle').textContent = previewOn ? 'Hide live preview' : 'Show live preview';
-  if (!previewOn) { $('preview').removeAttribute('src'); if (previewURL) URL.revokeObjectURL(previewURL); }
+  if (!previewOn) { previewController?.abort(); clearPreview(); }
+  else { previewMessage('Connecting to camera…'); void preview(); }
 });
-async function preview() {
-  if (!previewOn || previewBusy || document.hidden) return;
-  previewBusy = true;
-  try {
-    const response = await fetch('/api/preview.jpg');
-    if (!response.ok) { $('preview').removeAttribute('src'); return; }
-    const next = URL.createObjectURL(await response.blob());
-    if (previewURL) URL.revokeObjectURL(previewURL);
-    previewURL = next; $('preview').src = next;
-  } finally { previewBusy = false; }
+function clearPreview() {
+  $('preview').removeAttribute('src'); $('preview').hidden = true;
+  if (previewURL) URL.revokeObjectURL(previewURL);
+  previewURL = undefined;
+  $('preview-placeholder').hidden = false;
 }
-(async function poll() { await refresh(); await preview().catch(() => {}); setTimeout(poll,1000); })();
-(async function history() { await sessions().catch(err => error(err.message)); setTimeout(history,10000); })();
+function previewMessage(message) {
+  $('preview-status').textContent = message;
+  $('preview-placeholder').textContent = message;
+}
+async function preview() {
+  if (!previewOn || previewController || document.hidden) return;
+  const controller = new AbortController();
+  previewController = controller;
+  const timeout = setTimeout(() => controller.abort(), 12000);
+  let next;
+  try {
+    const response = await fetch('/api/preview.jpg', {signal: controller.signal, cache: 'no-store'});
+    if (response.status === 401) { location.assign('/login'); throw new Error('Your session has expired. Sign in again.'); }
+    if (!response.ok) throw new Error(`Camera preview unavailable (${response.status}). Reconnecting…`);
+    if (!response.headers.get('Content-Type')?.startsWith('image/jpeg')) throw new Error('Camera returned an invalid image. Reconnecting…');
+    next = URL.createObjectURL(await response.blob());
+    const frame = new Image(); frame.src = next;
+    await frame.decode().catch(() => { throw new Error('Camera returned an invalid image. Reconnecting…'); });
+    if (controller.signal.aborted) throw controller.signal.reason;
+    if (!previewOn || document.hidden) return;
+    $('preview').src = next; $('preview').hidden = false;
+    $('preview-placeholder').hidden = true;
+    if (previewURL) URL.revokeObjectURL(previewURL);
+    previewURL = next; next = undefined;
+    previewMessage('Live camera preview');
+  } catch (err) {
+    clearPreview();
+    if (previewOn && !document.hidden) previewMessage(err.name === 'AbortError' ? 'Camera preview timed out. Reconnecting…' : err.name === 'TypeError' ? 'Camera preview connection lost. Reconnecting…' : err.message);
+  } finally {
+    if (next) URL.revokeObjectURL(next);
+    clearTimeout(timeout); previewController = undefined;
+  }
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { previewController?.abort(); clearPreview(); }
+  else if (previewOn) { previewMessage('Connecting to camera…'); void preview(); }
+});
+(async function poll() { if (!document.hidden) await refresh(); setTimeout(poll,1000); })();
+(async function frames() { await preview(); setTimeout(frames,1000); })();
+(async function history() { if (!document.hidden) await sessions().catch(err => error('history', err.message)); setTimeout(history,10000); })();

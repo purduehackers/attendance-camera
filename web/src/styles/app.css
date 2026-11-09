@@ -34,8 +34,9 @@
 .ph-dither-btn:active { transform: scale(.97); }
 .fields { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 .help { margin: 16px 0; font-size: .9rem; max-width: 78ch; }
-#preview { width: 100%; background: var(--ph-black); min-height: 160px; object-fit: contain; max-height: 600px; }
-#preview-wrap { margin-bottom: 28px; }
+.preview-frame { display: grid; place-items: center; background: var(--ph-black); color: var(--ph-cream); min-height: 240px; }
+#preview { display: block; width: 100%; object-fit: contain; max-height: 600px; }
+#preview-placeholder { padding: 32px; text-align: center; }
 .history h2 { margin-bottom: 20px; }
 .table-wrap { overflow: auto; }
 table { width: 100%; }

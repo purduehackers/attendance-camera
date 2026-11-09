@@ -21,6 +21,14 @@ const limits = [
   </div>
   <div id="notice" role="status" class="message" hidden></div>
   <div id="error" role="alert" class="message" hidden></div>
+  <section class="panel" aria-labelledby="camera-heading">
+    <div class="section-head"><h2 id="camera-heading" class="ph-headline">Camera</h2><Button id="preview-toggle" variant="outline" type="button" aria-expanded="true" aria-controls="preview-wrap">Hide live preview</Button></div>
+    <div id="preview-wrap">
+      <div class="preview-frame"><img id="preview" alt="Live camera view with counting region, line and track centers" hidden /><p id="preview-placeholder">Connecting to camera…</p></div>
+      <p id="preview-status" class="help" role="status">Connecting to camera…</p>
+      <p class="help">The preview updates about once a second. Live frames stay in memory. No footage is recorded.</p>
+    </div>
+  </section>
   <section class="counts" aria-label="Attendance counts">
     <div class="count main-count"><span class="ph-subheadline">Estimated occupancy</span><strong id="occupancy">—</strong><p>People in the room</p></div>
     <div class="count"><span class="ph-subheadline">Entrances</span><strong id="incoming">—</strong><p>Includes people returning</p></div>
@@ -37,8 +45,7 @@ const limits = [
     <p class="help">Start with an actual headcount. Correct it after interruptions or missed crossings.</p>
   </section>
   <section class="panel">
-    <div class="section-head"><h2 class="ph-headline">Counting boundary</h2><Button id="preview-toggle" variant="outline" type="button" aria-expanded="false" aria-controls="preview-wrap">Show live preview</Button></div>
-    <div id="preview-wrap" hidden><img id="preview" alt="Live camera view with counting region, line and track centers" /><p class="help">Live frames stay in memory. No footage is recorded.</p></div>
+    <div class="section-head"><h2 class="ph-headline">Counting boundary</h2></div>
     <form id="calibration-form">
       <fieldset id="calibration-fields" disabled>
         <legend class="sr-only">Counting boundary settings</legend>

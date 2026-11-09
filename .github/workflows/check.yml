@@ -17,6 +17,7 @@ jobs:
         with:
           bun-version: '1.4.0'
       - run: bun install --cwd web --frozen-lockfile
+      - run: bun test web/tests
       - run: bun run --cwd web build
       - name: Verify committed dashboard assets
         run: git diff --exit-code -- web/built && test -z "$(git ls-files --others --exclude-standard web/built)"

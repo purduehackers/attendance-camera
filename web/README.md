@@ -8,6 +8,7 @@ The copied components live in `src/components/ph`, with the unmodified theme in
 
 ```bash
 bun install --frozen-lockfile
+bun test tests
 bun run build
 ```
 
@@ -17,3 +18,9 @@ dashboard and rejects stale output. Rebuild Rust after changing the assets.
 
 The public relay requires Purdue Hackers ID. The older Python static dashboard
 remains available only through the private loopback API for diagnostics.
+
+The camera preview opens automatically at the top of the dashboard. It displays
+the latest annotated JPEG about once a second, independently of status polling.
+Hiding the preview or switching tabs cancels its request and releases the image.
+Connection failures clear the old frame and show a reconnect message; successful
+polls clear their own errors without hiding failed organizer actions.
