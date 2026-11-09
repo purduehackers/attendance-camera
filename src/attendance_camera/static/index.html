@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Attendance · Purdue Hackers</title><link rel="stylesheet" href="/style.css"><script src="/dashboard.js" defer></script></head>
+<body><main>
+<header><span class="eyebrow">PURDUE HACKERS</span><span id="connection" role="status">Connecting…</span></header>
+<h1>Attendance</h1><p class="muted">A live estimate of who's here. Entrances include people returning.</p>
+<div id="notice" role="status" hidden></div><div id="error" role="alert" hidden></div>
+<section class="counts" aria-label="Attendance counts"><div><span class="label">Estimated occupancy</span><strong id="occupancy">—</strong></div><div><span class="label">Entrances</span><strong id="incoming">—</strong></div><div><span class="label">Exits</span><strong id="outgoing">—</strong></div></section>
+<section class="panel"><div class="section-head"><h2>Session</h2><span id="session-state">No active session</span></div>
+<form id="session-form"><label>Current headcount<input id="headcount" type="number" min="0" max="10000" value="0" required></label><button id="start" type="submit">Start session</button><button id="reconcile" type="button" disabled>Correct occupancy</button><button id="end" type="button" class="secondary" disabled>End session</button></form>
+<p class="muted small">Start with an actual headcount. Correct it after interruptions or missed crossings.</p></section>
+<section class="panel"><div class="section-head"><h2>Counting boundary</h2><button id="preview-toggle" class="secondary" type="button">Show live preview</button></div>
+<div id="preview-wrap" hidden><img id="preview" alt="Live camera view with counting region, line and track centers"><p class="muted small">Live frames stay in memory. No footage is recorded.</p></div>
+<form id="calibration-form"><div class="fields">
+<label>Line direction<select id="axis"><option value="y">Horizontal</option><option value="x">Vertical</option></select></label>
+<label>Entrance moves toward<select id="inside"><option value="positive">Bottom / right</option><option value="negative">Top / left</option></select></label>
+<label>Line position (%)<input id="position" type="number" min="10" max="90" step="1" value="50" required></label>
+<label>Boundary buffer (%)<input id="deadband" type="number" min="0.5" max="15" step="0.5" value="4" required></label>
+<label>Region left (%)<input id="x_min" type="number" min="0" max="90" value="10" required></label>
+<label>Region top (%)<input id="y_min" type="number" min="0" max="90" value="10" required></label>
+<label>Region right (%)<input id="x_max" type="number" min="10" max="100" value="90" required></label>
+<label>Region bottom (%)<input id="y_max" type="number" min="10" max="100" value="90" required></label>
+</div><p class="muted small">Keep the region around the passage. Place the line where each person is visible on both sides, and check a walk in each direction.</p><button type="submit">Save calibration</button></form></section>
+<section class="panel"><h2>Recent sessions</h2><div class="table-wrap"><table><thead><tr><th>Started</th><th>Status</th><th>In</th><th>Out</th><th>Counts</th></tr></thead><tbody id="sessions"></tbody></table></div></section>
+<footer>Counts are estimates, not unique attendance. No names, faces or track histories are stored.</footer>
+</main></body></html>

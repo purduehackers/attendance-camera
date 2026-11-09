@@ -5,4 +5,4 @@
 - [Documentation](./docs/README.md)
 - [CAD files](./cad/v9/)
 
-Camera feed and enclosure prototype; attendance counting is not implemented yet.
+Local people counting, occupancy estimates, and an enclosure prototype.

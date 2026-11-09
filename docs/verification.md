@@ -14,6 +14,9 @@ This separates observed device behavior, archived CAD checks and work that still
 | STL artifacts | All five meshes rechecked for connected components, closed edges, consistent winding and positive volume; the SHA-256 manifest ties the reports and exports to exact files. |
 | Physical prototype | No completed print, slicer project, physical load test, snap-force test, cable-fit test or thermal/creep test is recorded. |
 | Battery | No inline power meter or measured runtime. The 4–8 hour goal remains unverified with the intended battery. |
-| Attendance | Camera transport only. No counting/detection pipeline, deployment or accuracy result. |
+| Attendance backend | Local YOLOX/ByteTrack pipeline, directional counter, SQLite aggregates, authenticated dashboard and CSV export implemented. Twenty tests pass, including synthetic tracking-to-counting integration, API access and persistence. Real overhead counting accuracy remains unmeasured. |
+| Server deployment | User-level systemd service deployed and enabled on the PH server, running Rocky Linux 9.8 with Xeon X5650 CPUs. Live processing verified with fresh frames, about 165 ms per processed frame in one status sample, roughly 312 MiB memory, and zero service restarts at the check. No session was started or calibration asserted on the uninstalled camera view. |
+| Camera transport to server | A dedicated restricted SSH key and boot-enabled reverse tunnel on the Pi provide a server-loopback RTSP endpoint. The server's current Tailscale state did not provide connectivity to the Pi. The existing Pi streaming service remains active. |
+| Browser dashboard | Synthetic demo tested in Chromium: preview, session start and responsive layout; no JavaScript errors or horizontal overflow at 390 px. These UI tests do not validate person detection. |
 
 Do not interpret a running systemd service as proof of playback on every client, or closed STL geometry as proof of structural strength. Use the v9 print and assembly instructions for the remaining physical checks.

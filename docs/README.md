@@ -12,7 +12,9 @@ First, [view the README in `hardware/`](./hardware/README.md) to build the camer
 
 The Pi runs a 1080p30 hardware H.264 camera feed over Tailscale. v9 is the current enclosure prototype: three installed printed parts, with the battery and Pi above the doorframe and the camera facing straight down. It slides onto a rubber-lined mount without tightening anything at height.
 
-CAD and mesh checks passed. The case has not been physically printed or load-tested, and battery runtime has not been measured. The 4–8 hour target remains unverified. Attendance counting or detection is not implemented.
+The [attendance server](software/Server.md) consumes the feed, detects people locally, counts directional crossings and stores aggregate occupancy data. Its organizer dashboard includes calibration, corrections and CSV export. Accuracy on the installed overhead fisheye view still needs physical validation.
+
+CAD and mesh checks passed. The case has not been physically printed or load-tested, and battery runtime has not been measured. The 4–8 hour target remains unverified.
 
 - [Verification status](./verification.md)
 - [CAD scripts and revision history](../cad/README.md)

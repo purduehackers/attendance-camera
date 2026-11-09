@@ -16,7 +16,7 @@ Connect the viewing device to the same tailnet, with access allowed by its polic
 
 All listener addresses bind to the Pi's Tailscale IP. RTSP uses TCP 8554; WebRTC uses HTTP 8889 and media on UDP/TCP 8189. Configure tailnet grants/ACLs for the intended viewers. The MediaMTX read permission accepts any allowed source in the Tailscale IPv4 range; there is no separate viewer password. Tailscale supplies transport encryption and access control. Do not expose these ports publicly or enable Funnel for this configuration.
 
-The `cam` path runs continuously at 1920 × 1080, 30 fps, 8 Mbps, hardware H.264 baseline with a 30-frame keyframe interval. Recording, RTMP, HLS, SRT, MoQ, API, metrics and profiling are disabled. The repository does not contain attendance analysis or stored footage.
+The `cam` path runs continuously at 1920 × 1080, 30 fps, 8 Mbps, hardware H.264 baseline with a 30-frame keyframe interval. Recording, RTMP, HLS, SRT, MoQ, API, metrics and profiling are disabled. The separate [attendance server](Server.md) consumes RTSP and stores counts, without recording footage.
 
 
 Next: [install the feed](Install.md).

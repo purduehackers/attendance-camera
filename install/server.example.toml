@@ -1,0 +1,21 @@
+# Paths are relative to the service working directory. Copy to local/server.toml.
+# Set ATTENDANCE_CAMERA_URL and ATTENDANCE_TOKEN in a private environment file.
+host = "127.0.0.1"
+port = 8000
+database = "local/attendance.sqlite3"
+model_path = "local/models/yolox_tiny.onnx"
+fps = 6
+confidence = 0.4
+inference_threads = 3
+
+[calibration]
+x_min = 0.1
+y_min = 0.1
+x_max = 0.9
+y_max = 0.9
+axis = "y"
+position = 0.5
+inside = "positive"
+deadband = 0.04
+confirmation_frames = 2
+max_gap_seconds = 1.5
