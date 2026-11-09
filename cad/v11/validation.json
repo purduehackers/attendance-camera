@@ -11,7 +11,7 @@
       "name": "01 Electronics case - PRINT 1",
       "file": "01-electronics-case.stl",
       "quantity": 1,
-      "volume_cm3": 84.4920727208073
+      "volume_cm3": 84.3394327208074
     },
     {
       "id": "02",
@@ -181,12 +181,13 @@
     "cone_radius_at_bumper_mm": 17.013845458853122,
     "actual_entrance_pupil_and_view_unverified": true
   },
+  "cable_clearance_report": "cable-clearance.json",
   "not_tested": [
     "physical clamp retention and creep",
     "actual trim strength and attachment to wall",
     "screw and snap fit",
     "actual lens extent and field of view",
-    "actual cable bends and plug housings",
+    "physical cable fit, exact INIU port centers and full CSI route",
     "slicer support volume and print time"
   ],
   "coupon_files": []

@@ -7,7 +7,7 @@ def main():
     args=parser.parse_args();base=Path(__file__).resolve().parents[1]/'v11'
     manifest=json.loads((base/'manifest-sha256.json').read_text())
     parts=json.loads((base/'validation.json').read_text())['parts']
-    archive=args.output/'attendance-camera-v11-print.zip';args.output.mkdir(parents=True,exist_ok=True)
+    archive=args.output/'attendance-camera-v11-cable-access-print.zip';args.output.mkdir(parents=True,exist_ok=True)
     expected={}
     with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED) as z:
         for part in parts:
@@ -20,7 +20,7 @@ def main():
     with zipfile.ZipFile(archive) as z:
         assert len(z.namelist())==10 and set(z.namelist())==set(expected) and z.testzip() is None
         for name,digest in expected.items():assert hashlib.sha256(z.read(name)).hexdigest()==digest
-    notes=args.output/'attendance-camera-v11-print-notes.txt'
+    notes=args.output/'attendance-camera-v11-cable-access-print-notes.txt'
     notes.write_text((base/'PRINT-ADMIN-NOTES.md').read_text().split('\n',2)[2])
     print(f'{archive}\n{notes}\nVerified: ten installed STL files, no coupons or other test pieces.')
 

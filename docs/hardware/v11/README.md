@@ -39,6 +39,8 @@ There are ten installed pieces from seven models. The delivery ZIP includes dupl
 
 No heat-set inserts are required. The hand knobs capture **hex bolt heads**; round socket-cap heads will not drive these knobs. Use button heads for the M3 bench screws so the head height clears the electronics. Do not substitute longer M3 screws: the specified 10 mm screws end 0.9 mm inside the jaw surface, with 0.7 mm of thread projecting through the nut. The rubber contact pads remain full rectangles.
 
+See the [US shopping list](sourcing.md) for purchasable sizes, quantities and substitutions, and the [cable routing and clearance check](cables.md) before choosing the power lead. The Pi side opening was lowered by 2 mm during the cable review; download the refreshed v11 case STL if you saved the earlier export.
+
 Standard hardware references: [DIN 933 M5 × 30 bolt](https://www.accu.co.uk/full-thread-hexagon-bolts/1008549-SEBF-M5-30-8-8-BZP), [DIN 934 M5 nut](https://www.accu.co.uk/hexagon-nuts/456462-HPN-M5-C8), [ISO 7380-1 M3 × 10 button screw](https://www.vital-parts.co.uk/hex-socket-button-screws-iso-7380-1/44014-hbs73801-m3-10-109-bzp), and [DIN 934 nut dimensions](https://www.masonsfasteners.com/themes/masonfastners/images/Catalogue1.pdf).
 
 ## Bench assembly
@@ -48,8 +50,8 @@ Standard hardware references: [DIN 933 M5 × 30 bolt](https://www.accu.co.uk/ful
 3. Put one M5 nut into each lower jaw's 8.3 mm pocket. Insert an M5 hex bolt through each hand knob, head in the knob's hex pocket, and thread it up through the jaw nut. Put the screw tip in the pressure shoe's blind seat. Add a loose shoe-retaining loop; it is a parts retainer, not the overhead safety tether. Confirm the shoe can settle squarely and travel without binding.
 4. Fit the six rubber contact pads. Thread the independent tether through the two 5 × 7 mm roof slots around the reinforced 8 × 6 mm bridge. Route it above the case and away from the downward view.
 5. Gently form the Pi and camera pilot threads with the correct metal screws, then fit the boards. The PCB holes stay their original sizes; M3 hardware never passes through either PCB. The small plastic threads are for infrequent servicing.
-6. Strap and pad the INIU P51L-E2 battery with its charging end toward the left opening. The Pi USB/Ethernet ports face up; power/HDMI/audio face the right opening. The battery reference remains 115 × 73 × 29 mm.
-7. Route the ribbon down its recessed channel, avoiding sharp folds and connector strain. Fit the snap-on front/ribbon cover and camera guard. The right upper cover clip has moved beside the USB opening; do not use a v10 cover on this case.
+6. Strap and pad the INIU P51L-E2 battery with its charging end toward the left opening. The Pi USB/Ethernet ports face up; power/HDMI/audio face the right opening. The battery reference remains 115 × 73 × 29 mm. Connect a separate USB-A-to-USB-C power lead from the battery's left end to the Pi's right side; route it around the front with gentle bends as shown in the [cable guide](cables.md). The battery's USB-C charging port stays accessible while strapped in.
+7. Route the ribbon down its recessed channel, avoiding sharp folds and connector strain. Check the complete ribbon connection to the Pi before closing the cover; the native ribbon envelope only checks the lower channel. Fit the snap-on front/ribbon cover and camera guard. The right upper cover clip has moved beside the USB opening; do not use a v10 cover on this case.
 
 ## Frame installation
 
@@ -78,5 +80,6 @@ PETG remains recommended for the clamps, clips and warm case. It does not remedy
 - Both clamped and retracted clamp configurations checked; assembly pose restored in the native file.
 - Camera axis measured from its occurrence transform as `[0, 0, -1]`; four Pi and four camera pilot cylinders measured from the actual surfaces.
 - All seven oriented STLs have one connected component, closed manifold edges, consistent winding and positive volume.
+- The [cable report](../../../cad/v11/cable-clearance.json) checks 35 × 16 × 10 mm plug envelopes, hand-access boxes and a complete external power route with 20 mm/23.75 mm side bends. It gives 1.2 mm beneath the Pi power plug envelope. The real battery port centers, connector housings and full CSI route are not dimensioned in this model.
 
 These checks validate the modeled geometry. Physical fit, clamping force, long-term creep, real cable fit and optics remain to be tested on the actual assembled parts.

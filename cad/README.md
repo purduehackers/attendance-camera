@@ -44,6 +44,8 @@ Override the endpoint with `FUSION_MCP_URL` if needed. `FUSION_MCP_SESSION` opti
 
 `scripts/package_v11.py` creates a delivery ZIP containing ten installed STL files (the repeated parts are duplicated for convenience) and separate operator notes. It does not add coupons. Regenerate the manifest after intentional changes, then run `python3 scripts/check_artifacts.py`.
 
+`scripts/check_v11_cables.py` is called by the native validator and can also inspect the assembled v11 document in read-only mode. It checks specified plug and external cable envelopes, not actual connector CAD or the full CSI route. `scripts/draw_v11_cables.py` draws the plan-view routing guide from its JSON report.
+
 The scripts use `__file__`-relative paths and should be loaded through the Fusion MCP helper or an equivalent native script import. Read the source before execution; the export/preview step temporarily lays out the installed occurrences and restores the assembly before saving.
 
 ## Updating archived v10 artifacts

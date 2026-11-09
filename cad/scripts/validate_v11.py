@@ -6,6 +6,7 @@ ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'v11'
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from build_enclosure import component,box,appearance,color,mmpt,V
 from build_upright_v5 import side_shape
+from check_v11_cables import run as check_cables
 
 FILES={
     '01':'01-electronics-case.stl','02':'02-front-and-ribbon-cover.stl',
@@ -85,7 +86,7 @@ def run(_context: str):
     color(rib,appearance(d,'v11 ribbon blue',45,145,205))
 
     tests=[('Pi USB Ethernet',144.5,-3.5,202.5,16.5,171.6,27),
-           ('Pi USB-C HDMI audio',203.1,-4.5,235,17.5,88,57),
+           ('Pi USB-C HDMI audio',203.1,-4.5,235,17.5,86.5,59),
            ('Battery charging',-25,-11,7.9,20,84,76)]
     probes=[]
     for name,x0,y0,x1,y1,z,h in tests:
@@ -93,6 +94,7 @@ def run(_context: str):
     hits=collisions(d,list(r.occurrences))
     print(json.dumps({'closed_interference':hits}));assert not hits,hits
     for o in probes:assert o.deleteMe()
+    check_cables(_context)
 
     camera=next(o for o in r.occurrences if o.component.name.startswith('REFERENCE - Waveshare'))
     axis=[camera.transform2.getCell(i,2) for i in range(3)];assert axis==[0,0,-1],axis
@@ -142,7 +144,8 @@ def run(_context: str):
             'optical_reference':{'lens_tip_z_mm':-32.7,'bumper_tip_z_mm':-35.7,'nominal_front_clearance_mm':3,
                                  'cone_full_angle_deg':160,'bumper_min_radius_mm':radial,'cone_radius_at_bumper_mm':cone_radius,
                                  'actual_entrance_pupil_and_view_unverified':True},
-            'not_tested':['physical clamp retention and creep','actual trim strength and attachment to wall','screw and snap fit','actual lens extent and field of view','actual cable bends and plug housings','slicer support volume and print time'],
+            'cable_clearance_report':'cable-clearance.json',
+            'not_tested':['physical clamp retention and creep','actual trim strength and attachment to wall','screw and snap fit','actual lens extent and field of view','physical cable fit, exact INIU port centers and full CSI route','slicer support volume and print time'],
             'coupon_files':[]}
     (OUT/'validation.json').write_text(json.dumps(report,indent=2)+'\n')
     ex=d.exportManager

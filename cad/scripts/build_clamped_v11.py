@@ -60,7 +60,9 @@ def run(_context: str):
     # Open service windows to the separate cover edge, removing 58-77 mm
     # lintels that otherwise need support when the case prints back-down.
     box(c,'Battery port open to front edge',-1,-14.1,3.2,20.5,75,77,CUT)
-    box(c,'Pi side ports open to front edge',210.8,-14.1,215,18,79,58,CUT)
+    # Lower edge gives a 16 x 10 mm USB-C overmold 1.2 mm vertical
+    # clearance at the power socket. The earlier 79 mm start clipped it.
+    box(c,'Pi side ports open to front edge',210.8,-14.1,215,18,77,60,CUT)
     box(c,'Pi top ports open to front edge',144,-14.1,203,17,164.5,2.6,CUT)
     box(c,'Relocated upper-right cover latch',205,-10,211,-5.5,164.5,2.6,CUT)
     # Thread the tether through these roof slots on the bench. This avoids an

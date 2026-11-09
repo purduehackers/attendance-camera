@@ -67,6 +67,12 @@ def check_revision(revision):
         assert sum(p['quantity'] for p in report['parts']) == 10
         assert report['fastener_stack_mm']['M3_screw_length'] == 10
         assert report['fastener_stack_mm']['M3_tip_recess_above_jaw_bottom'] > 0
+        cable = json.loads((base / 'cable-clearance.json').read_text())
+        assert not cable['interference'] and cable['route_is_external']
+        assert cable['pi_lower_housing_clearance_mm'] >= 1
+        assert cable['power_route_including_housings_mm'] < 480
+        assert cable['model_builder_sha256'] == hashlib.sha256(
+            (CAD/'scripts/build_clamped_v11.py').read_bytes()).hexdigest()
         for name, diameter in [('Pi', 2.1), ('camera', 1.7)]:
             faces = report['pilot_cylinder_checks'][name]
             assert len(faces) == 4 and all(f['diameter_mm'] == diameter for f in faces)
