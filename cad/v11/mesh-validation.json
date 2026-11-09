@@ -1,0 +1,100 @@
+[
+  {
+    "file": "01-electronics-case.stl",
+    "triangles": 3604,
+    "size_mm": [
+      214.0,
+      98.0,
+      36.4
+    ],
+    "connected_components": 1,
+    "closed_manifold": true,
+    "consistent_winding": true,
+    "downward_surface_area_over_45deg_mm2": 432.54,
+    "overhang_metric_note": "Geometric area only, includes printable bridges and holes; not slicer support volume."
+  },
+  {
+    "file": "02-front-and-ribbon-cover.stl",
+    "triangles": 1260,
+    "size_mm": [
+      213.6,
+      179.3,
+      14.4
+    ],
+    "connected_components": 1,
+    "closed_manifold": true,
+    "consistent_winding": true,
+    "downward_surface_area_over_45deg_mm2": 577.97,
+    "overhang_metric_note": "Geometric area only, includes printable bridges and holes; not slicer support volume."
+  },
+  {
+    "file": "03-camera-guard-with-bumpers.stl",
+    "triangles": 1052,
+    "size_mm": [
+      47.6,
+      30.3,
+      47.6
+    ],
+    "connected_components": 1,
+    "closed_manifold": true,
+    "consistent_winding": true,
+    "downward_surface_area_over_45deg_mm2": 229.53,
+    "overhang_metric_note": "Geometric area only, includes printable bridges and holes; not slicer support volume."
+  },
+  {
+    "file": "04-downward-camera-carrier.stl",
+    "triangles": 1976,
+    "size_mm": [
+      42.0,
+      91.0,
+      42.0
+    ],
+    "connected_components": 1,
+    "closed_manifold": true,
+    "consistent_winding": true,
+    "downward_surface_area_over_45deg_mm2": 248.16,
+    "overhang_metric_note": "Geometric area only, includes printable bridges and holes; not slicer support volume."
+  },
+  {
+    "file": "05-adjustable-clamp-print-two.stl",
+    "triangles": 1380,
+    "size_mm": [
+      45.0,
+      101.5,
+      26.0
+    ],
+    "connected_components": 1,
+    "closed_manifold": true,
+    "consistent_winding": true,
+    "downward_surface_area_over_45deg_mm2": 176.98,
+    "overhang_metric_note": "Geometric area only, includes printable bridges and holes; not slicer support volume."
+  },
+  {
+    "file": "06-pressure-shoe-print-two.stl",
+    "triangles": 944,
+    "size_mm": [
+      20.0,
+      20.0,
+      6.0
+    ],
+    "connected_components": 1,
+    "closed_manifold": true,
+    "consistent_winding": true,
+    "downward_surface_area_over_45deg_mm2": 0,
+    "overhang_metric_note": "Geometric area only, includes printable bridges and holes; not slicer support volume."
+  },
+  {
+    "file": "07-hand-knob-print-two.stl",
+    "triangles": 1916,
+    "size_mm": [
+      27.355,
+      27.996,
+      9.0
+    ],
+    "connected_components": 1,
+    "closed_manifold": true,
+    "consistent_winding": true,
+    "downward_surface_area_over_45deg_mm2": 0,
+    "overhang_metric_note": "Geometric area only, includes printable bridges and holes; not slicer support volume."
+  }
+]

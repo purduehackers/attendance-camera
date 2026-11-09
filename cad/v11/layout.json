@@ -1,0 +1,102 @@
+{
+  "revision": "v11",
+  "frame_mm": {
+    "overhang": 52,
+    "lip_rise": 55,
+    "first_ledge": 12,
+    "next_rise": 12,
+    "upper_ledge": 11
+  },
+  "case_raise_mm": 8.5,
+  "case_floor_z_mm": 77.5,
+  "clamp_centers_x_mm": [
+    25,
+    189
+  ],
+  "clamp_screw_axis_y_mm": 17.5,
+  "bench_mount_centers_xy_mm": [
+    [
+      18,
+      16
+    ],
+    [
+      32,
+      16
+    ],
+    [
+      182,
+      16
+    ],
+    [
+      196,
+      16
+    ],
+    [
+      92,
+      -2.5
+    ],
+    [
+      122,
+      -2.5
+    ]
+  ],
+  "clamp_shape_yz_mm": [
+    [
+      -14,
+      -24
+    ],
+    [
+      31,
+      -24
+    ],
+    [
+      31,
+      -12
+    ],
+    [
+      -4,
+      -12
+    ],
+    [
+      -4,
+      57.5
+    ],
+    [
+      11.5,
+      57.5
+    ],
+    [
+      11.5,
+      69.5
+    ],
+    [
+      22.4,
+      69.5
+    ],
+    [
+      22.4,
+      77.5
+    ],
+    [
+      -14,
+      77.5
+    ]
+  ],
+  "pad_stock_mm": 3,
+  "modeled_pad_mm": 2.5,
+  "shoe_nominal_z_mm": [
+    -8.5,
+    -2.5
+  ],
+  "shoe_retracted_bottom_mm": -12,
+  "nominal_lower_open_clearance_mm": 3.5,
+  "lens_reference_tip_z_mm": -32.7,
+  "bumper_tip_z_mm": -35.7,
+  "lens_extension_is_assumed": true,
+  "tether": "Two 5 x 7 mm roof slots around an 8 x 6 mm bridge; independent anchor required",
+  "shoe_retainers": "Two small loose cable-tie loops through shoe and bracket slots; retain loose shoes only",
+  "installation": "Bench-assemble. Slide onto ledges, then hand-tighten two padded M5 clamps from below. No drilling.",
+  "physical_load_tested": false,
+  "physical_fit_tested": false,
+  "coupon_files": []
+}

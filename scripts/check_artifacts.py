@@ -49,7 +49,8 @@ def check_revision(revision):
     for name, expected in manifest.items():
         assert hashlib.sha256((base / name).read_bytes()).hexdigest() == expected, f'Changed export: {name}'
     report = json.loads((base / 'validation.json').read_text())
-    assert report['installed_print_count'] == 3 and not report['health_warnings'] and not report['interference']
+    expected_installed = 10 if revision == 'v11' else 3
+    assert report['installed_print_count'] == expected_installed and not report['health_warnings'] and not report['interference']
     assert report['camera_direction'] == [0, 0, -1]
     if revision == 'v10':
         hardware = json.loads((base / 'hardware.json').read_text())
@@ -58,15 +59,27 @@ def check_revision(revision):
         for name, diameter in [('Pi', 2.1), ('camera', 1.7)]:
             faces = report['pilot_cylinder_checks'][name]
             assert len(faces) == 4 and all(f['diameter_mm'] == diameter for f in faces)
+    if revision == 'v11':
+        hardware = json.loads((base / 'hardware.json').read_text())
+        assert report['unique_print_count'] == 7 and not report['open_pose_interference']
+        assert report['heat_set_inserts'] == 0 and report['nuts'] == 8
+        assert report['coupon_files'] == [] and hardware['inserts'] == []
+        assert sum(p['quantity'] for p in report['parts']) == 10
+        assert report['fastener_stack_mm']['M3_screw_length'] == 10
+        assert report['fastener_stack_mm']['M3_tip_recess_above_jaw_bottom'] > 0
+        for name, diameter in [('Pi', 2.1), ('camera', 1.7)]:
+            faces = report['pilot_cylinder_checks'][name]
+            assert len(faces) == 4 and all(f['diameter_mm'] == diameter for f in faces)
     paths = sorted((base / 'stl').glob('*.stl'))
-    assert len(paths) == 5
+    expected_meshes = 7 if revision == 'v11' else 5
+    assert len(paths) == expected_meshes
     for path in paths:
         check_mesh(path)
-    print(f'{revision} manifest and five connected, closed, consistently wound meshes passed.')
+    print(f'{revision} manifest and {expected_meshes} connected, closed, consistently wound meshes passed.')
 
 
 def main():
-    for revision in ['v9', 'v10']:
+    for revision in ['v9', 'v10', 'v11']:
         check_revision(revision)
 
 

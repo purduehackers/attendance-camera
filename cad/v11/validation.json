@@ -1,0 +1,193 @@
+{
+  "revision": "v11",
+  "health_warnings": [],
+  "interference": [],
+  "open_pose_interference": [],
+  "installed_print_count": 10,
+  "unique_print_count": 7,
+  "parts": [
+    {
+      "id": "01",
+      "name": "01 Electronics case - PRINT 1",
+      "file": "01-electronics-case.stl",
+      "quantity": 1,
+      "volume_cm3": 84.4920727208073
+    },
+    {
+      "id": "02",
+      "name": "02 Flat front and ribbon cover - PRINT 1",
+      "file": "02-front-and-ribbon-cover.stl",
+      "quantity": 1,
+      "volume_cm3": 45.36775272255377
+    },
+    {
+      "id": "03",
+      "name": "03 Camera guard with corner bumpers - PRINT 1",
+      "file": "03-camera-guard-with-bumpers.stl",
+      "quantity": 1,
+      "volume_cm3": 10.53758361347522
+    },
+    {
+      "id": "04",
+      "name": "04 Downward camera carrier - PRINT 1",
+      "file": "04-downward-camera-carrier.stl",
+      "quantity": 1,
+      "volume_cm3": 24.71831958897216
+    },
+    {
+      "id": "05",
+      "name": "05 Adjustable C clamp - PRINT 2",
+      "file": "05-adjustable-clamp-print-two.stl",
+      "quantity": 2,
+      "volume_cm3": 46.79458421261041
+    },
+    {
+      "id": "06",
+      "name": "06 Padded pressure shoe - PRINT 2",
+      "file": "06-pressure-shoe-print-two.stl",
+      "quantity": 2,
+      "volume_cm3": 1.9785566352527726
+    },
+    {
+      "id": "07",
+      "name": "07 M5 hex bolt hand knob - PRINT 2",
+      "file": "07-hand-knob-print-two.stl",
+      "quantity": 2,
+      "volume_cm3": 4.727725871593454
+    }
+  ],
+  "camera_direction": [
+    0.0,
+    0.0,
+    -1.0
+  ],
+  "pilot_cylinder_checks": {
+    "Pi": [
+      {
+        "diameter_mm": 2.1,
+        "straight_length_mm": 4.8
+      },
+      {
+        "diameter_mm": 2.1,
+        "straight_length_mm": 4.8
+      },
+      {
+        "diameter_mm": 2.1,
+        "straight_length_mm": 4.8
+      },
+      {
+        "diameter_mm": 2.1,
+        "straight_length_mm": 4.8
+      }
+    ],
+    "camera": [
+      {
+        "diameter_mm": 1.7,
+        "straight_length_mm": 3.8
+      },
+      {
+        "diameter_mm": 1.7,
+        "straight_length_mm": 3.8
+      },
+      {
+        "diameter_mm": 1.7,
+        "straight_length_mm": 3.8
+      },
+      {
+        "diameter_mm": 1.7,
+        "straight_length_mm": 3.8
+      }
+    ]
+  },
+  "bench_screws": 6,
+  "clamp_screws": 2,
+  "electronics_screws": 8,
+  "heat_set_inserts": 0,
+  "nuts": 8,
+  "access_corridors_checked": [
+    "Pi USB Ethernet",
+    "Pi USB-C HDMI audio",
+    "Battery charging"
+  ],
+  "ribbon_route_yz_mm": [
+    [
+      -17.5,
+      -13
+    ],
+    [
+      -17.5,
+      -9
+    ],
+    [
+      -14.5,
+      -7
+    ],
+    [
+      -13,
+      -7
+    ],
+    [
+      -10.8,
+      -3.5
+    ],
+    [
+      -10.8,
+      81.5
+    ]
+  ],
+  "ribbon_envelope_mm": [
+    16,
+    0.35
+  ],
+  "ribbon_dimensions_assumed": true,
+  "clamp_contacts": {
+    "upper_pad_y_mm": [
+      13,
+      22
+    ],
+    "lower_shoe_y_mm": [
+      9.5,
+      25.5
+    ],
+    "screw_y_mm": 17.5
+  },
+  "retracted_shoe_travel_mm": 3.5,
+  "free_pad_opening_note": "3 mm free lower pad leaves about 3 mm under the nominal frame before upper-pad relaxation.",
+  "fastener_stack_mm": {
+    "case_floor": 2.4,
+    "bracket_top": 8,
+    "M3_washer": 0.5,
+    "M3_screw_length": 10,
+    "M3_head_z": [
+      80.4,
+      82.05
+    ],
+    "M3_tip_z": 70.4,
+    "frame_upper_z": 67,
+    "M3_tip_frame_clearance": 3.4,
+    "M3_tip_recess_above_jaw_bottom": 0.9,
+    "M3_nut_z": [
+      71.1,
+      73.5
+    ],
+    "M3_thread_projection_past_nut": 0.7
+  },
+  "optical_reference": {
+    "lens_tip_z_mm": -32.7,
+    "bumper_tip_z_mm": -35.7,
+    "nominal_front_clearance_mm": 3,
+    "cone_full_angle_deg": 160,
+    "bumper_min_radius_mm": 23.37439838797996,
+    "cone_radius_at_bumper_mm": 17.013845458853122,
+    "actual_entrance_pupil_and_view_unverified": true
+  },
+  "not_tested": [
+    "physical clamp retention and creep",
+    "actual trim strength and attachment to wall",
+    "screw and snap fit",
+    "actual lens extent and field of view",
+    "actual cable bends and plug housings",
+    "slicer support volume and print time"
+  ],
+  "coupon_files": []
+}
