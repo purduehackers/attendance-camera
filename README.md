@@ -3,7 +3,7 @@
 📷 Doorframe-mounted Raspberry Pi camera for Hack Night attendance.
 
 - [Documentation](./docs/README.md)
-- [CAD files](./cad/v9/)
+- [CAD files](./cad/v10/)
 - [Counting server](./docs/software/Server.md)
 - [Rust transport and deployment](./docs/software/Transport.md)
 - [Live dashboard](https://attendance.purduehackers.com) · [Deployment status](./docs/software/Deployment-status.md)

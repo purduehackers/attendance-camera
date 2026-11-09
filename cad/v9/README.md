@@ -1,6 +1,6 @@
 # attendance-camera-v9 CAD
 
-Current enclosure prototype. Earlier revisions are superseded.
+Archived heat-set insert variant. Use [v10](../v10/README.md) for the current design without inserts.
 
 - [Hardware and BOM](../../docs/hardware/v9/README.md)
 - [Assembly instructions](../../docs/hardware/v9/assembly.md)

@@ -1,8 +1,8 @@
 # CAD sources and exports
 
-**Use `v9/` for the current design.** Open [doorframe-camera-simple-v9.f3d](v9/doorframe-camera-simple-v9.f3d) in Autodesk Fusion for editing. The [STEP](v9/doorframe-camera-simple-v9.step) includes the modeled reference hardware and frame; print only the five individually exported [STLs](v9/stl), of which three are installed parts.
+**Use `v10/` for the current design.** Open [doorframe-camera-simple-v10.f3d](v10/doorframe-camera-simple-v10.f3d) in Autodesk Fusion for editing. The [STEP](v10/doorframe-camera-simple-v10.step) includes the modeled reference hardware and frame; print only the five individually exported [STLs](v10/stl), of which three are installed parts.
 
-The [assembly guide](../docs/hardware/v9/assembly.md) and [operator notes](../docs/hardware/v9/printing.md) describe hardware, orientations, pads, port access, ribbon routing and untested fit assumptions. The current mesh/geometry reports and checksums are also inside `v9/`. Reports at this directory's root or in older revision folders are historical.
+The [assembly guide](../docs/hardware/v10/assembly.md) and [operator notes](../docs/hardware/v10/printing.md) describe provisional screw pilots, hardware, orientations, pads, port access, ribbon routing and untested fit assumptions. The current mesh/geometry reports and checksums are also inside `v10/`. Reports at this directory's root or in older revision folders are historical.
 
 ## Development history
 
@@ -15,7 +15,8 @@ The Python files in `scripts/` preserve the modeling and inspection work, includ
 | `v6/` | Three installed parts, with frame fit gauge and insert coupon |
 | `v7/` | Flush camera support and covered ribbon route |
 | `v8/` | Logo development; superseded due to a nonmanifold point contact. Do not print this revision. |
-| `v9/` | Current reinforced hooks, clip-root fillets, corrected logo mesh and oriented exports |
+| `v9/` | Reinforced hooks, clip-root fillets and corrected logo; archived small heat-set insert variant |
+| `v10/` | Current direct PETG screw pilots and labeled screw-fit coupon; no inserts or nuts |
 
 Historical native files and reports are retained; duplicate ZIPs, obsolete preview images and old STL exports are omitted. Opening a native archive does not require replaying the modeling scripts.
 
@@ -34,17 +35,17 @@ python3 cad/scripts/fusion_client.py script cad/scripts/inspect.py --read-only
 
 Override the endpoint with `FUSION_MCP_URL` if needed. `FUSION_MCP_SESSION` optionally supplies an existing session; do not commit one. The wrapper imports scripts inside Fusion so their `__file__`-relative output paths work. Local Python does not provide the `adsk` API.
 
-## Updating v9 artifacts
+## Updating v10 artifacts
 
-`scripts/validate_v9.py` inspects the active design and exports fresh model-coordinate artifacts. `scripts/prepare_v9_meshes.py` transforms those fresh STLs into print orientation. Read both scripts before use, activate the intended v9 document, and run orientation preparation only once on each fresh export. Do not repeatedly transform the already oriented tracked STLs.
+`scripts/validate_v10.py` inspects the active design and exports fresh model-coordinate artifacts. `scripts/prepare_v10_meshes.py` transforms those fresh STLs into print orientation. Read both scripts before use, activate the intended v10 document, and run orientation preparation only once on each fresh export. Do not repeatedly transform the already oriented tracked STLs.
 
-After an intentional export or documentation update, regenerate the manifest from the v9 directory:
+After an intentional export or documentation update, regenerate the manifest from the v10 directory:
 
 ```sh
 python3 - <<'PY'
 import hashlib, json
 from pathlib import Path
-base = Path('cad/v9')
+base = Path('cad/v10')
 manifest = {
     str(path.relative_to(base)): hashlib.sha256(path.read_bytes()).hexdigest()
     for path in sorted(base.rglob('*'))

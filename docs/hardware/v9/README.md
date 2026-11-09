@@ -1,5 +1,7 @@
 # attendance-camera-v9
 
+Archived heat-set variant. The current [v10](../v10/README.md) uses direct PETG screw pilots and requires no inserts.
+
 ## External
 
 The case, hanging arms and downward camera holder form one printed body. A snap front cover includes the ribbon-channel roof, and a snap guard protects the camera. All electronics fastening happens at table height; the assembled mount slides onto rubber-lined doorframe contacts.

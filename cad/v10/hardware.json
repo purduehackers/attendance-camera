@@ -1,0 +1,155 @@
+{
+  "revision": "v10 direct PETG screw mounts; no heat-set inserts or nuts",
+  "installed_prints": [
+    "integral case, retaining arms and camera holder",
+    "snap-on front cover with integral ribbon roof",
+    "snap-on camera guard"
+  ],
+  "screws": [
+    {
+      "quantity": 4,
+      "size": "M2.5 x 6",
+      "pitch_mm": 0.45,
+      "standard": "ISO 4762 / DIN 912",
+      "head_diameter_mm": 4.5,
+      "head_height_mm": 2.5,
+      "hex_key_mm": 2,
+      "purpose": "Pi"
+    },
+    {
+      "quantity": 4,
+      "size": "M2 x 4",
+      "pitch_mm": 0.4,
+      "standard": "ISO 4762 / DIN 912",
+      "head_diameter_mm": 3.8,
+      "head_height_mm": 2,
+      "hex_key_mm": 1.5,
+      "purpose": "camera"
+    }
+  ],
+  "inserts": [],
+  "source_screw_M2": "https://www.accu.co.uk/metric-cap-head-screws/3790-SSCF-M2-4-A2",
+  "source_screw_M25": "https://www.accu.co.uk/metric-cap-head-screws/3804-SSCF-M2-5-6-A2",
+  "physical_fit_tested": false,
+  "snap_fit_tested": false,
+  "ribbon_channel_mm": {
+    "clear_width": 18,
+    "floor_y": -9.4,
+    "roof_inner_y": -12.6,
+    "clear_depth": 3.2,
+    "cable_envelope_assumption": [
+      16,
+      0.35
+    ]
+  },
+  "printing_note": "PETG, 6 walls, 30% global infill, solid hook modifiers. Print the screw-fit coupon and frame gauge before the large body; do not put supports in pilot holes. See PRINT-ADMIN-NOTES.md.",
+  "nuts": [],
+  "direct_screw_mounts": [
+    {
+      "purpose": "Pi",
+      "thread": "M2.5",
+      "pilot_mm": 2.1,
+      "depth_mm": 5,
+      "boss_od_mm": 8,
+      "pcb_mm": 1.6,
+      "screw_projection_mm": 4.4,
+      "entry_relief_mm": 0.2,
+      "nominal_thread_engagement_mm": 4.2,
+      "tip_clearance_mm": 0.6
+    },
+    {
+      "purpose": "camera",
+      "thread": "M2",
+      "pilot_mm": 1.7,
+      "depth_mm": 4,
+      "boss_od_mm": 6.4,
+      "pcb_mm": 1.2,
+      "screw_projection_mm": 2.8,
+      "entry_relief_mm": 0.2,
+      "nominal_thread_engagement_mm": 2.6,
+      "tip_clearance_mm": 1.2
+    }
+  ],
+  "screw_fit_coupon": [
+    {
+      "thread": "M2",
+      "pilot_mm": 1.6,
+      "center_mm": [
+        253,
+        9,
+        9
+      ],
+      "simulated_pcb_mm": 1.2,
+      "entry_relief_mm": 0.2,
+      "clearance_diameter_mm": 2.2,
+      "pilot_depth_below_pcb_mm": 4
+    },
+    {
+      "thread": "M2",
+      "pilot_mm": 1.7,
+      "center_mm": [
+        271,
+        9,
+        9
+      ],
+      "simulated_pcb_mm": 1.2,
+      "entry_relief_mm": 0.2,
+      "clearance_diameter_mm": 2.2,
+      "pilot_depth_below_pcb_mm": 4
+    },
+    {
+      "thread": "M2",
+      "pilot_mm": 1.8,
+      "center_mm": [
+        289,
+        9,
+        9
+      ],
+      "simulated_pcb_mm": 1.2,
+      "entry_relief_mm": 0.2,
+      "clearance_diameter_mm": 2.2,
+      "pilot_depth_below_pcb_mm": 4
+    },
+    {
+      "thread": "M2.5",
+      "pilot_mm": 2.0,
+      "center_mm": [
+        253,
+        31,
+        10
+      ],
+      "simulated_pcb_mm": 1.6,
+      "entry_relief_mm": 0.2,
+      "clearance_diameter_mm": 2.8,
+      "pilot_depth_below_pcb_mm": 5
+    },
+    {
+      "thread": "M2.5",
+      "pilot_mm": 2.1,
+      "center_mm": [
+        271,
+        31,
+        10
+      ],
+      "simulated_pcb_mm": 1.6,
+      "entry_relief_mm": 0.2,
+      "clearance_diameter_mm": 2.8,
+      "pilot_depth_below_pcb_mm": 5
+    },
+    {
+      "thread": "M2.5",
+      "pilot_mm": 2.2,
+      "center_mm": [
+        289,
+        31,
+        10
+      ],
+      "simulated_pcb_mm": 1.6,
+      "entry_relief_mm": 0.2,
+      "clearance_diameter_mm": 2.8,
+      "pilot_depth_below_pcb_mm": 5
+    }
+  ],
+  "fastening_note": "Use steel socket-cap machine screws gently to form the threads before fitting electronics; these are not modeled helical threads. Pilot diameters are provisional and require a PETG coupon check. Direct plastic threads are for infrequent assembly; use a captive-nut revision for repeated board servicing. Do not put M3 screws through the PCBs.",
+  "source_plastic_threads": "https://ftc-docs.firstinspires.org/en/latest/manufacturing/3d_printing/designing_and_slicing/working_with_screws/working_with_screws.html"
+}

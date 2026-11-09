@@ -1,0 +1,18 @@
+{
+  "revision": "v10",
+  "printer": "Bambu H2D Pro",
+  "material": "unfilled PETG",
+  "nozzle_mm": 0.4,
+  "layer_height_mm": 0.2,
+  "wall_loops": 6,
+  "infill_percent": 30,
+  "infill_pattern": "gyroid",
+  "top_layers": 6,
+  "bottom_layers": 6,
+  "units": "mm",
+  "scale_percent": 100,
+  "local_modifiers": "100% infill around both retaining arms including roots and toes",
+  "supports": "Required; operator placement and removal-access review",
+  "sliced": false,
+  "physical_load_tested": false
+}

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Check the tracked v9 export without requiring Fusion or modifying meshes."""
+"""Check current and archived exports without Fusion or modifying meshes."""
 from collections import defaultdict
 import hashlib
 import json
 from pathlib import Path
 import struct
 
-BASE = Path(__file__).resolve().parents[1] / 'cad' / 'v9'
+CAD = Path(__file__).resolve().parents[1] / 'cad'
 
 
 def check_mesh(path):
@@ -40,17 +40,34 @@ def check_mesh(path):
     assert volume > 0, f'{path.name}: nonpositive volume'
 
 
-def main():
-    manifest = json.loads((BASE / 'manifest-sha256.json').read_text())
+def check_revision(revision):
+    base = CAD / revision
+    manifest = json.loads((base / 'manifest-sha256.json').read_text())
+    actual = {str(p.relative_to(base)) for p in base.rglob('*')
+              if p.is_file() and p.name != 'manifest-sha256.json'}
+    assert actual == set(manifest), f'{revision}: manifest file set differs'
     for name, expected in manifest.items():
-        assert hashlib.sha256((BASE / name).read_bytes()).hexdigest() == expected, f'Changed export: {name}'
-    report = json.loads((BASE / 'validation.json').read_text())
+        assert hashlib.sha256((base / name).read_bytes()).hexdigest() == expected, f'Changed export: {name}'
+    report = json.loads((base / 'validation.json').read_text())
     assert report['installed_print_count'] == 3 and not report['health_warnings'] and not report['interference']
-    paths = sorted((BASE / 'stl').glob('*.stl'))
+    assert report['camera_direction'] == [0, 0, -1]
+    if revision == 'v10':
+        hardware = json.loads((base / 'hardware.json').read_text())
+        assert report['heat_set_inserts'] == 0 and report['nuts'] == 0
+        assert hardware['inserts'] == [] and hardware['nuts'] == []
+        for name, diameter in [('Pi', 2.1), ('camera', 1.7)]:
+            faces = report['pilot_cylinder_checks'][name]
+            assert len(faces) == 4 and all(f['diameter_mm'] == diameter for f in faces)
+    paths = sorted((base / 'stl').glob('*.stl'))
     assert len(paths) == 5
     for path in paths:
         check_mesh(path)
-    print('v9 manifest and five connected, closed, consistently wound meshes passed.')
+    print(f'{revision} manifest and five connected, closed, consistently wound meshes passed.')
+
+
+def main():
+    for revision in ['v9', 'v10']:
+        check_revision(revision)
 
 
 if __name__ == '__main__':

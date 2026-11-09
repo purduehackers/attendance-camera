@@ -1,0 +1,64 @@
+{
+  "base_revision": "v9",
+  "pi": {
+    "parameter": "pi_screw_pilot",
+    "diameter_mm": 2.1,
+    "depth_mm": 5,
+    "centers_mm": [
+      [
+        149.5,
+        15.600000000000001,
+        78.5
+      ],
+      [
+        198.5,
+        15.600000000000001,
+        78.5
+      ],
+      [
+        149.5,
+        15.600000000000001,
+        136.5
+      ],
+      [
+        198.5,
+        15.600000000000001,
+        136.5
+      ]
+    ]
+  },
+  "camera": {
+    "parameter": "camera_screw_pilot",
+    "diameter_mm": 1.7,
+    "depth_mm": 4,
+    "centers_mm": [
+      [
+        117.5,
+        -7.149999999999999,
+        -13.5
+      ],
+      [
+        117.5,
+        6.350000000000001,
+        -13.5
+      ],
+      [
+        96.5,
+        -7.149999999999999,
+        -13.5
+      ],
+      [
+        96.5,
+        6.350000000000001,
+        -13.5
+      ]
+    ]
+  },
+  "expected_added_volume_cm3": 0.27103776459580586,
+  "measured_added_volume_cm3": 0.27103776459637174,
+  "unchanged_cover_and_guard_volumes_cm3": {
+    "02 Snap-on front cover - PRINT": 40.28423272255377,
+    "03 Snap-on downward camera guard - PRINT": 10.927647986824564
+  },
+  "physical_screw_fit_tested": false
+}

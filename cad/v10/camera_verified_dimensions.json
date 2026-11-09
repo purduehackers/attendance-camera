@@ -1,0 +1,31 @@
+{
+  "source": "https://www.waveshare.com/w/upload/8/8a/RPi_Camera_E_F_G_H_Mechanical.zip",
+  "pcb_mm": [
+    25,
+    24
+  ],
+  "mount_hole_diameter_mm": 2.2,
+  "mount_centers_mm": [
+    [
+      2,
+      8.5
+    ],
+    [
+      23,
+      8.5
+    ],
+    [
+      2,
+      22
+    ],
+    [
+      23,
+      22
+    ]
+  ],
+  "lens_center_from_bottom_left_mm": [
+    12.5,
+    15.65
+  ],
+  "note": "Coordinates from original Waveshare mechanical DWG; ribbon cable exits bottom. Lens barrel diameter and extension are not dimensioned in this shared PCB drawing; leave clearance and verify prototype."
+}

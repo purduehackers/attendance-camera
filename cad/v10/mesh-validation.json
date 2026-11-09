@@ -1,0 +1,57 @@
+[
+  {
+    "file": "01-integral-case-mount-and-camera-holder.stl",
+    "triangles": 5716,
+    "size_mm": [
+      68.65,
+      180.5,
+      214.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 151.9044
+  },
+  {
+    "file": "02-snap-on-front-cover.stl",
+    "triangles": 1268,
+    "size_mm": [
+      213.6,
+      170.8,
+      14.4
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 40.2843
+  },
+  {
+    "file": "03-snap-on-downward-camera-guard.stl",
+    "triangles": 1168,
+    "size_mm": [
+      47.6,
+      23.6,
+      47.6
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 10.9276
+  },
+  {
+    "file": "07-upward-step-fit-gauge-print-first.stl",
+    "triangles": 36,
+    "size_mm": [
+      26.0,
+      70.0,
+      8.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 1.7971
+  },
+  {
+    "file": "08-screw-fit-test-coupon.stl",
+    "triangles": 7150,
+    "size_mm": [
+      44.0,
+      10.0,
+      52.0
+    ],
+    "nonmanifold_edges": 0,
+    "mesh_volume_cm3": 6.3579
+  }
+]

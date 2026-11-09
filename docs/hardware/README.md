@@ -2,9 +2,9 @@
 
 This directory documents the hardware for `attendance-camera`.
 
-## [v9](./v9/README.md)
+## [v10](./v10/README.md)
 
-This is the current prototype. CAD files are [available here](../../cad/v9/). Use the v9 [assembly instructions](./v9/assembly.md) and [print operator notes](./v9/printing.md).
+This is the current prototype. CAD files are [available here](../../cad/v10/). Use the v10 [assembly instructions](./v10/assembly.md) and [print operator notes](./v10/printing.md).
 
 The design targets a Raspberry Pi 4, the Duckiedrone's Waveshare RPi Camera G and an INIU P51L-E2 battery. Physical fit and loaded retention still need testing before overhead use.
 
